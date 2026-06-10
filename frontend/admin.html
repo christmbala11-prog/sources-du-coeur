@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Les Sources du Cœur — Administration</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="js/tailwind.config.js"></script>
+<style>
+  body{background:#f8fafc;}
+  .glass-nav{background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);}
+  .tab-btn.active{background:#009e60;color:white;}
+  .stat-card{transition:all .2s;}
+  .stat-card:hover{transform:translateY(-2px);}
+</style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+<!-- DRAPEAU -->
+<div class="h-2 w-full flex">
+  <div class="w-1/3 h-full bg-[#009e60]"></div>
+  <div class="w-1/3 h-full bg-[#fcd116]"></div>
+  <div class="w-1/3 h-full bg-[#3a75c4]"></div>
+</div>
+
+<!-- MODAL LOGIN -->
+<div class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" id="admin-login-modal">
+  <div class="bg-white rounded-3xl max-w-md w-full border border-slate-200 overflow-hidden shadow-2xl">
+    <div class="bg-[#003d20] text-white p-6 text-center space-y-2">
+      <img src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg" alt="Logo" class="h-16 w-auto object-contain mx-auto"/>
+      <h3 class="text-xl font-bold font-serif">Administration</h3>
+      <p class="text-xs text-slate-300">Entrez vos identifiants de sécurité</p>
+    </div>
+    <form class="p-6 space-y-4" onsubmit="handleAdminLogin(event)">
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Email *</label>
+        <input class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-[#009e60] focus:outline-none focus:ring-2 focus:ring-[#009e60]/20" id="admin-email" placeholder="admin@lessourcesducoeur.ga" required type="email"/>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Mot de passe *</label>
+        <input class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-[#009e60] focus:outline-none focus:ring-2 focus:ring-[#009e60]/20" id="admin-password" placeholder="••••••••••" required type="password"/>
+      </div>
+      <button class="w-full py-3.5 bg-[#009e60] hover:bg-[#006e40] text-white font-bold rounded-xl transition flex items-center justify-center gap-2" type="submit">
+        <i class="fa-solid fa-lock"></i> Se connecter
+      </button>
+      <div class="text-center pt-2">
+        <a href="index.html" class="text-xs text-slate-400 hover:text-slate-600 transition">← Retour au site</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- DASHBOARD ADMIN (caché par défaut) -->
+<div class="hidden" id="admin-dashboard">
+
+  <!-- NAV ADMIN -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-slate-200/70 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <div class="flex items-center gap-3">
+          <img src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg" alt="Logo" class="h-12 w-auto object-contain"/>
+          <div>
+            <span class="block text-[10px] font-bold tracking-widest text-[#009e60] uppercase">Administration</span>
+            <span class="block text-lg font-bold text-slate-950 font-serif leading-tight">Les Sources du Cœur</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-500 hidden sm:block" id="admin-user-email"></span>
+          <a href="index.html" class="px-3 py-2 text-xs text-slate-600 hover:text-slate-900 border border-slate-200 rounded-lg transition">
+            <i class="fa-solid fa-globe mr-1"></i>Voir le site
+          </a>
+          <button onclick="handleAdminLogout()" class="px-3 py-2 text-xs text-red-600 hover:bg-red-50 border border-red-200 rounded-lg transition">
+            <i class="fa-solid fa-right-from-bracket mr-1"></i>Déconnexion
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-10">
+
+    <!-- STATS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="stat-card bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-[#e6f7ef] text-[#009e60] flex items-center justify-center"><i class="fa-solid fa-file-medical"></i></div>
+          <span class="text-xs text-slate-400">Total</span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900" id="stat-dossiers">0</div>
+        <div class="text-xs text-slate-500 mt-1">Dossiers reçus</div>
+      </div>
+      <div class="stat-card bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-[#fcd116]/15 text-[#c4a000] flex items-center justify-center"><i class="fa-solid fa-handshake-angle"></i></div>
+          <span class="text-xs text-slate-400">Total</span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900" id="stat-benevoles">0</div>
+        <div class="text-xs text-slate-500 mt-1">Aidants inscrits</div>
+      </div>
+      <div class="stat-card bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-[#3a75c4]/10 text-[#3a75c4] flex items-center justify-center"><i class="fa-solid fa-comments"></i></div>
+          <span class="text-xs text-slate-400">Total</span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900" id="stat-temoignages">0</div>
+        <div class="text-xs text-slate-500 mt-1">Témoignages</div>
+      </div>
+      <div class="stat-card bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-red-50 text-red-500 flex items-center justify-center"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <span class="text-xs text-slate-400">Total</span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900" id="stat-signalements">0</div>
+        <div class="text-xs text-slate-500 mt-1">Signalements</div>
+      </div>
+    </div>
+
+    <!-- ONGLETS -->
+    <div class="bg-slate-100 p-1.5 rounded-2xl flex gap-1 flex-wrap">
+      <button onclick="switchAdminTab('dossiers')" id="tab-dossiers" class="tab-btn active flex-1 py-2.5 rounded-xl text-sm font-bold transition min-w-[120px]">
+        <i class="fa-solid fa-file-medical mr-1.5"></i>Dossiers
+      </button>
+      <button onclick="switchAdminTab('benevoles')" id="tab-benevoles" class="tab-btn flex-1 py-2.5 rounded-xl text-sm font-bold text-slate-600 transition min-w-[120px]">
+        <i class="fa-solid fa-handshake-angle mr-1.5"></i>Aidants
+      </button>
+      <button onclick="switchAdminTab('temoignages')" id="tab-temoignages" class="tab-btn flex-1 py-2.5 rounded-xl text-sm font-bold text-slate-600 transition min-w-[120px]">
+        <i class="fa-solid fa-comments mr-1.5"></i>Témoignages
+      </button>
+      <button onclick="switchAdminTab('signalements')" id="tab-signalements" class="tab-btn flex-1 py-2.5 rounded-xl text-sm font-bold text-slate-600 transition min-w-[120px]">
+        <i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Signalements
+      </button>
+    </div>
+
+    <!-- CONTENU DOSSIERS -->
+    <div id="content-dossiers">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="font-bold font-serif text-slate-900">Dossiers reçus</h3>
+          <button onclick="loadDossiers()" class="text-xs text-[#009e60] hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Actualiser</button>
+        </div>
+        <div id="dossiers-list" class="divide-y divide-slate-50">
+          <div class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENU AIDANTS -->
+    <div id="content-benevoles" class="hidden">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="font-bold font-serif text-slate-900">Aidants inscrits</h3>
+          <button onclick="loadBenevoles()" class="text-xs text-[#009e60] hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Actualiser</button>
+        </div>
+        <div id="benevoles-list" class="divide-y divide-slate-50">
+          <div class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENU TÉMOIGNAGES -->
+    <div id="content-temoignages" class="hidden">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="font-bold font-serif text-slate-900">Témoignages à modérer</h3>
+          <button onclick="loadTemoignages()" class="text-xs text-[#009e60] hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Actualiser</button>
+        </div>
+        <div id="temoignages-list" class="divide-y divide-slate-50">
+          <div class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENU SIGNALEMENTS -->
+    <div id="content-signalements" class="hidden">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="font-bold font-serif text-slate-900">Signalements terrain</h3>
+          <button onclick="loadSignalements()" class="text-xs text-[#009e60] hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Actualiser</button>
+        </div>
+        <div id="signalements-list" class="divide-y divide-slate-50">
+          <div class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- TOAST -->
+<div class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-4 rounded-xl shadow-2xl border border-slate-800 flex items-center gap-3 max-w-sm transform translate-y-24 opacity-0 transition duration-300" id="toast-notif">
+  <div class="w-8 h-8 rounded-lg bg-[#009e60] flex items-center justify-center" id="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+  <div><h4 class="font-bold text-sm" id="toast-title">Succès !</h4><p class="text-xs text-slate-300" id="toast-message"></p></div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+const API_ADMIN = 'http://localhost:3000/api';
+
+// ── ONGLETS ──
+function switchAdminTab(tab) {
+  ['dossiers','benevoles','temoignages','signalements'].forEach(t => {
+    document.getElementById(`tab-${t}`).classList.remove('active');
+    document.getElementById(`tab-${t}`).classList.add('text-slate-600');
+    document.getElementById(`content-${t}`).classList.add('hidden');
+  });
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  document.getElementById(`tab-${tab}`).classList.remove('text-slate-600');
+  document.getElementById(`content-${tab}`).classList.remove('hidden');
+  if(tab === 'dossiers') loadDossiers();
+  if(tab === 'benevoles') loadBenevoles();
+  if(tab === 'temoignages') loadTemoignages();
+  if(tab === 'signalements') loadSignalements();
+}
+
+// ── BADGE STATUT ──
+function statusBadge(statut) {
+  const map = {
+    'en_attente': 'bg-yellow-100 text-yellow-700',
+    'approuve': 'bg-green-100 text-green-700',
+    'rejete': 'bg-red-100 text-red-700',
+    'nouveau': 'bg-blue-100 text-blue-700',
+    'traite': 'bg-slate-100 text-slate-600',
+  };
+  return `<span class="px-2.5 py-1 rounded-full text-xs font-bold ${map[statut] || 'bg-slate-100 text-slate-600'}">${statut.replace('_',' ')}</span>`;
+}
+
+// ── DOSSIERS ──
+async function loadDossiers() {
+  const token = localStorage.getItem('admin_token');
+  const res = await fetch(`${API_ADMIN}/dossiers`, { headers: { Authorization: `Bearer ${token}` } });
+  const data = await res.json();
+  document.getElementById('stat-dossiers').textContent = data.length;
+  document.getElementById('dossiers-list').innerHTML = data.length === 0
+    ? '<div class="p-8 text-center text-slate-400 text-sm">Aucun dossier pour le moment.</div>'
+    : data.map(d => `
+      <div class="p-5 hover:bg-slate-50 transition">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-[#009e60] text-white flex items-center justify-center font-bold text-sm">${d.nom.charAt(0)}</div>
+              <span class="font-bold text-slate-900">${d.nom}</span>
+              ${statusBadge(d.statut)}
+            </div>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-phone mr-1"></i>${d.telephone} · <i class="fa-solid fa-map-pin mr-1"></i>${d.province} · ${d.bureau}</p>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-tag mr-1"></i>${d.type}</p>
+            <p class="text-sm text-slate-600 pl-10 mt-1">${d.description}</p>
+          </div>
+          <div class="flex gap-2 flex-wrap">
+            <button onclick="updateDossierStatut(${d.id}, 'approuve')" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">✓ Approuver</button>
+            <button onclick="updateDossierStatut(${d.id}, 'rejete')" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">✗ Rejeter</button>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-2 pl-10">${new Date(d.createdAt).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p>
+      </div>
+    `).join('');
+}
+
+async function updateDossierStatut(id, statut) {
+  const token = localStorage.getItem('admin_token');
+  await fetch(`${API_ADMIN}/dossiers/${id}/statut`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ statut })
+  });
+  showToast('Statut mis à jour', `Dossier marqué comme "${statut}"`);
+  loadDossiers();
+}
+
+// ── AIDANTS ──
+async function loadBenevoles() {
+  const token = localStorage.getItem('admin_token');
+  const res = await fetch(`${API_ADMIN}/benevoles`, { headers: { Authorization: `Bearer ${token}` } });
+  const data = await res.json();
+  document.getElementById('stat-benevoles').textContent = data.length;
+  document.getElementById('benevoles-list').innerHTML = data.length === 0
+    ? '<div class="p-8 text-center text-slate-400 text-sm">Aucun aidant pour le moment.</div>'
+    : data.map(b => `
+      <div class="p-5 hover:bg-slate-50 transition">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-[#fcd116] text-slate-900 flex items-center justify-center font-bold text-sm">${b.nom.charAt(0)}</div>
+              <span class="font-bold text-slate-900">${b.nom}</span>
+              ${statusBadge(b.statut)}
+            </div>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-envelope mr-1"></i>${b.email} · <i class="fa-solid fa-phone mr-1"></i>${b.telephone}</p>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-tag mr-1"></i>${b.type} · ${b.specialite} · <i class="fa-solid fa-location-dot mr-1"></i>${b.ville}</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="updateBenevoleStatut(${b.id}, 'approuve')" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">✓ Valider</button>
+            <button onclick="updateBenevoleStatut(${b.id}, 'rejete')" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">✗ Rejeter</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+}
+
+async function updateBenevoleStatut(id, statut) {
+  const token = localStorage.getItem('admin_token');
+  await fetch(`${API_ADMIN}/benevoles/${id}/statut`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ statut })
+  });
+  showToast('Statut mis à jour', `Aidant marqué comme "${statut}"`);
+  loadBenevoles();
+}
+
+// ── TÉMOIGNAGES ──
+async function loadTemoignages() {
+  const token = localStorage.getItem('admin_token');
+  const res = await fetch(`${API_ADMIN}/temoignages`, { headers: { Authorization: `Bearer ${token}` } });
+  const data = await res.json();
+  document.getElementById('stat-temoignages').textContent = data.length;
+  document.getElementById('temoignages-list').innerHTML = data.length === 0
+    ? '<div class="p-8 text-center text-slate-400 text-sm">Aucun témoignage pour le moment.</div>'
+    : data.map(t => `
+      <div class="p-5 hover:bg-slate-50 transition">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-[#3a75c4] text-white flex items-center justify-center font-bold text-sm">${t.auteur.charAt(0)}</div>
+              <span class="font-bold text-slate-900">${t.auteur}</span>
+              ${statusBadge(t.statut)}
+              <span class="text-[#fcd116] text-xs">${'★'.repeat(t.note)}</span>
+            </div>
+            <p class="text-xs text-slate-500 pl-10">${t.province} · ${t.role}</p>
+            <p class="text-sm text-slate-600 pl-10 italic">"${t.texte}"</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="updateTemoignageStatut(${t.id}, 'approuve')" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">✓ Publier</button>
+            <button onclick="updateTemoignageStatut(${t.id}, 'rejete')" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">✗ Rejeter</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+}
+
+async function updateTemoignageStatut(id, statut) {
+  const token = localStorage.getItem('admin_token');
+  await fetch(`${API_ADMIN}/temoignages/${id}/statut`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ statut })
+  });
+  showToast('Témoignage mis à jour', `Marqué comme "${statut}"`);
+  loadTemoignages();
+}
+
+// ── SIGNALEMENTS ──
+async function loadSignalements() {
+  const token = localStorage.getItem('admin_token');
+  const res = await fetch(`${API_ADMIN}/signalements`, { headers: { Authorization: `Bearer ${token}` } });
+  const data = await res.json();
+  document.getElementById('stat-signalements').textContent = data.length;
+  document.getElementById('signalements-list').innerHTML = data.length === 0
+    ? '<div class="p-8 text-center text-slate-400 text-sm">Aucun signalement pour le moment.</div>'
+    : data.map(s => `
+      <div class="p-5 hover:bg-slate-50 transition">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center text-sm"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <span class="font-bold text-slate-900">${s.type}</span>
+              ${statusBadge(s.statut)}
+            </div>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-map-pin mr-1"></i>${s.province} · ${s.bureau}</p>
+            <p class="text-sm text-slate-600 pl-10">${s.message}</p>
+            ${s.contact ? `<p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-phone mr-1"></i>${s.contact}</p>` : ''}
+          </div>
+          <button onclick="updateSignalementStatut(${s.id}, 'traite')" class="px-3 py-1.5 bg-slate-700 text-white text-xs font-bold rounded-lg hover:bg-slate-900 transition">✓ Marqué traité</button>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-2 pl-10">${new Date(s.createdAt).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'})}</p>
+      </div>
+    `).join('');
+}
+
+async function updateSignalementStatut(id, statut) {
+  const token = localStorage.getItem('admin_token');
+  await fetch(`${API_ADMIN}/signalements/${id}/statut`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ statut })
+  });
+  showToast('Signalement traité', 'Marqué comme traité.');
+  loadSignalements();
+}
+
+// ── DÉCONNEXION ──
+function handleAdminLogout() {
+  localStorage.removeItem('admin_token');
+  localStorage.removeItem('admin_email');
+  document.getElementById('admin-login-modal').classList.remove('hidden');
+  document.getElementById('admin-dashboard').classList.add('hidden');
+  showToast('Déconnecté', 'Vous avez été déconnecté avec succès.');
+}
+
+// ── VÉRIFICATION AU CHARGEMENT ──
+window.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('admin_token');
+  const email = localStorage.getItem('admin_email');
+  if (token) {
+    document.getElementById('admin-login-modal').classList.add('hidden');
+    document.getElementById('admin-dashboard').classList.remove('hidden');
+    if (email) document.getElementById('admin-user-email').textContent = email;
+    loadDossiers();
+  }
+});
+</script>
+</body>
+</html>

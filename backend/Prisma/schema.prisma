@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+}
+
+model Dossier {
+  id          Int      @id @default(autoincrement())
+  nom         String
+  telephone   String
+  province    String
+  bureau      String
+  type        String
+  description String
+  statut      String   @default("en_attente")
+  createdAt   DateTime @default(now())
+}
+
+model Benevole {
+  id         Int      @id @default(autoincrement())
+  nom        String
+  type       String
+  email      String
+  telephone  String
+  ville      String
+  specialite String
+  motivation String
+  statut     String   @default("en_attente")
+  createdAt  DateTime @default(now())
+}
+
+model Temoignage {
+  id        Int      @id @default(autoincrement())
+  auteur    String
+  province  String
+  role      String
+  note      Int
+  texte     String
+  statut    String   @default("en_attente")
+  createdAt DateTime @default(now())
+}
+
+model Signalement {
+  id        Int      @id @default(autoincrement())
+  province  String
+  bureau    String
+  type      String
+  contact   String
+  message   String
+  statut    String   @default("nouveau")
+  createdAt DateTime @default(now())
+}

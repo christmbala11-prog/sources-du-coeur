@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Trouvez le bureau des Sources du Cœur le plus proche de chez vous, dans toutes les provinces du Gabon."/>
+<title>Les Sources du Cœur — Nos Bureaux</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="js/tailwind.config.js"></script>
+<style>
+  body{background:#f8fafc;}
+  .glass-nav{background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .office-card{transition:all .25s ease;}
+  .office-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,158,96,0.12);}
+  .province-btn{transition:all .2s;}
+  .province-btn.active{background:#009e60;color:white;border-color:#009e60;}
+</style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+<div class="h-2 w-full flex">
+  <div class="w-1/3 h-full bg-[#009e60]"></div>
+  <div class="w-1/3 h-full bg-[#fcd116]"></div>
+  <div class="w-1/3 h-full bg-[#3a75c4]"></div>
+</div>
+
+<header class="sticky top-0 z-40 glass-nav border-b border-slate-200/70 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg" alt="Les Sources du Cœur" class="h-12 w-auto object-contain"/>
+        <div>
+          <span class="block text-[10px] font-bold tracking-widest text-[#009e60] uppercase">Association</span>
+          <span class="block text-lg font-bold text-slate-950 font-serif leading-tight">Les Sources du Cœur</span>
+        </div>
+      </a>
+      <nav class="hidden lg:flex items-center space-x-1">
+        <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="index.html"><i class="fa-solid fa-house mr-1.5"></i>Accueil</a>
+        <a class="px-4 py-2 rounded-lg text-sm font-semibold text-[#009e60] bg-[#e6f7ef]" href="bureaux.html"><i class="fa-solid fa-map-location-dot mr-1.5"></i>Nos Bureaux</a>
+        <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="histoire.html"><i class="fa-solid fa-monument mr-1.5"></i>Notre Histoire</a>
+        <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="temoignages.html"><i class="fa-solid fa-comments mr-1.5"></i>Témoignages</a>
+      </nav>
+      <div class="hidden lg:flex">
+        <a class="px-5 py-2.5 bg-[#009e60] hover:bg-[#006e40] text-white rounded-xl text-sm font-bold shadow-lg transition transform hover:-translate-y-0.5" href="rejoindre.html">Nous rejoindre <i class="fa-solid fa-arrow-right ml-1"></i></a>
+      </div>
+      <button class="lg:hidden p-2 text-slate-700" onclick="document.getElementById('mob').classList.toggle('hidden')"><i class="fa-solid fa-bars text-2xl"></i></button>
+    </div>
+  </div>
+  <div class="hidden lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-1" id="mob">
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="index.html"><i class="fa-solid fa-house w-5 text-[#009e60]"></i>Accueil</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="bureaux.html"><i class="fa-solid fa-map-location-dot w-5 text-[#009e60]"></i>Nos Bureaux</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="histoire.html"><i class="fa-solid fa-monument w-5 text-[#009e60]"></i>Notre Histoire</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="temoignages.html"><i class="fa-solid fa-comments w-5 text-[#009e60]"></i>Témoignages</a>
+    <div class="pt-2 border-t border-slate-100"><a class="block text-center py-3 bg-[#009e60] text-white rounded-xl font-bold" href="rejoindre.html">Nous rejoindre</a></div>
+  </div>
+</header>
+
+<main class="flex-grow">
+
+  <!-- HERO -->
+  <section class="relative text-white py-20 px-4 overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1400');"></div>
+    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(0,62,32,0.93) 0%,rgba(0,80,50,0.8) 100%);"></div>
+    <div class="relative max-w-5xl mx-auto z-10">
+      <div class="text-center space-y-4 mb-12">
+        <span class="text-xs font-bold tracking-widest text-[#fcd116] uppercase">Présence nationale</span>
+        <h1 class="text-4xl sm:text-5xl font-bold font-serif">Nos Bureaux Provinciaux</h1>
+        <div class="h-1 w-16 bg-[#fcd116] mx-auto rounded"></div>
+        <p class="text-slate-300 max-w-2xl mx-auto">Chaque bureau reçoit les bénéficiaires, vérifie les dossiers et coordonne les aidants dans son département.</p>
+      </div>
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+        <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10">
+          <div class="text-3xl font-extrabold">47</div>
+          <div class="text-xs text-slate-300 mt-1">Bureaux actifs</div>
+        </div>
+        <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10">
+          <div class="text-3xl font-extrabold">9</div>
+          <div class="text-xs text-slate-300 mt-1">Provinces</div>
+        </div>
+        <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10">
+          <div class="text-3xl font-extrabold text-[#fcd116]">24h</div>
+          <div class="text-xs text-slate-300 mt-1">Délai de réponse</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SÉLECTEUR PROVINCE + GRILLE -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Sélecteur visuel -->
+      <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 mb-10 reveal">
+        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-4 text-center">
+          <i class="fa-solid fa-map-pin text-[#009e60] mr-1.5"></i> Choisissez votre province
+        </label>
+        <!-- Boutons provinces -->
+        <div class="flex flex-wrap justify-center gap-2" id="province-buttons">
+          <button onclick="selectProvince('Estuaire', this)" class="province-btn active px-4 py-2 rounded-xl border-2 border-[#009e60] bg-[#009e60] text-white text-sm font-semibold">Estuaire</button>
+          <button onclick="selectProvince('Haut-Ogooué', this)" class="province-btn px-4 py-2 rounded-xl border-2 border-slate-200 text-slate-600 text-sm font-semibold hover:border-[#009e60] hover:text-[#009e60]">Haut-Ogooué</button>
+          <button onclick="selectProvince('Moyen-Ogooué', this)" class="province-btn px-4 py-2 rounded-xl border-2 border-slate-200 text-slate-600 text-sm font-semibold hover:border-[#009e60] hover:text-[#009e60]">Moyen-Ogooué</button>
+          <button onclick="selectProvince('Ngounié', this)" class="province-btn px-4 py-2 rounded-xl border-2 border-slate-200 text-slate-600 text-sm font-semibold hover:border-[#009e60] hover:text-[#009e60]">Ngounié</button>
+          <button onclick="selectProvince('Nyanga', this)" class="province-btn px-4 py-2 rounded-xl border-2 border-slate-200 text-slate-600 text-sm font-semibold hover:border-[#009e60] hover:text-[#009e60]">Nyanga</button>
+          <button onclick="selectProvince('Ogooué-Ivindo', this)" class="province-btn px-4 py-2 rounded-xl border-2 border-slate-200 text-slate-600 text-sm font-semibold hover:border-[#009e60] hover:text-[#009e60]">Ogooué-Ivindo</button>
+          <button onclick="selectProvince('Ogooué-Lolo', this)" class="province-btn px-4 py-2 rounded-xl border-2 border-slate-200 text-slate-600 text-sm font-semibold hover:border-[#009e60] hover:text-[#009e60]">Ogooué-Lolo</button>
+          <button onclick="selectProvince('Ogooué-Maritime', this)" class="province-btn px-4 py-2 rounded-xl border-2 border-slate-200 text-slate-600 text-sm font-semibold hover:border-[#009e60] hover:text-[#009e60]">Ogooué-Maritime</button>
+          <button onclick="selectProvince('Woleu-Ntem', this)" class="province-btn px-4 py-2 rounded-xl border-2 border-slate-200 text-slate-600 text-sm font-semibold hover:border-[#009e60] hover:text-[#009e60]">Woleu-Ntem</button>
+        </div>
+        <!-- Sélect caché pour compatibilité JS -->
+        <select class="hidden" id="province-selector" onchange="onProvinceChange()">
+          <option>Estuaire</option><option>Haut-Ogooué</option><option>Moyen-Ogooué</option>
+          <option>Ngounié</option><option>Nyanga</option><option>Ogooué-Ivindo</option>
+          <option>Ogooué-Lolo</option><option>Ogooué-Maritime</option><option>Woleu-Ntem</option>
+        </select>
+      </div>
+
+      <!-- Titre dynamique -->
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold font-serif text-slate-950" id="selected-province-title">Bureaux de la Province de l'Estuaire</h2>
+        <span class="text-sm text-slate-400 bg-slate-100 px-3 py-1.5 rounded-full" id="office-count"></span>
+      </div>
+
+      <!-- Grille bureaux -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="offices-grid"></div>
+
+    </div>
+  </section>
+
+  <!-- INFO BAS DE PAGE -->
+  <section class="py-12 px-4 bg-[#003d20] text-white">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div class="space-y-4">
+        <h3 class="text-xl font-bold font-serif text-[#fcd116]">Vous ne trouvez pas votre localité ?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Nos agents itinérants parcourent également les villages les plus reculés. Vous pouvez soumettre une demande en ligne ou appeler notre centrale nationale.</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="rejoindre.html" class="px-5 py-2.5 bg-[#009e60] hover:bg-[#006e40] text-white rounded-xl text-sm font-bold transition">
+            <i class="fa-solid fa-file-pen mr-1.5"></i>Soumettre en ligne
+          </a>
+          <a href="tel:+24101100000" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl text-sm font-bold transition">
+            <i class="fa-solid fa-phone mr-1.5"></i>+241 01 100 00
+          </a>
+        </div>
+      </div>
+      <div class="bg-white/8 rounded-2xl p-6 border border-white/10 space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#fcd116] flex items-center justify-center"><i class="fa-solid fa-clock text-slate-900"></i></div>
+          <div><p class="font-bold text-sm">Horaires des bureaux</p><p class="text-xs text-slate-400">Lundi–Vendredi : 8h–17h</p></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#009e60] flex items-center justify-center"><i class="fa-solid fa-phone text-white"></i></div>
+          <div><p class="font-bold text-sm">Urgences 24h/24</p><p class="text-xs text-slate-400">+241 01 100 00</p></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#3a75c4] flex items-center justify-center"><i class="fa-solid fa-envelope text-white"></i></div>
+          <div><p class="font-bold text-sm">Email</p><p class="text-xs text-slate-400">contact@lessourcesducoeur.ga</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- TOAST -->
+<div class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-4 rounded-xl shadow-2xl border border-slate-800 flex items-center gap-3 max-w-sm transform translate-y-24 opacity-0 transition duration-300" id="toast-notif">
+  <div class="w-8 h-8 rounded-lg bg-[#009e60] flex items-center justify-center" id="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+  <div><h4 class="font-bold text-sm" id="toast-title">Succès !</h4><p class="text-xs text-slate-300" id="toast-message"></p></div>
+</div>
+
+<footer class="bg-[#003d20] text-white border-t border-white/5 py-10 px-4">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <img src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg" alt="Logo" class="h-12 w-auto object-contain"/>
+      <span class="font-bold font-serif text-white">Les Sources du Cœur</span>
+    </div>
+    <div class="flex flex-wrap justify-center gap-5 text-xs text-slate-400">
+      <a href="index.html" class="hover:text-white transition">Accueil</a>
+      <a href="histoire.html" class="hover:text-white transition">Notre Histoire</a>
+      <a href="temoignages.html" class="hover:text-white transition">Témoignages</a>
+      <a href="rejoindre.html" class="hover:text-white transition">Nous Rejoindre</a>
+      <a href="faq.html" class="hover:text-white transition">FAQ</a>
+      <a href="mentions.html" class="hover:text-white transition">Mentions légales</a>
+    </div>
+    <p class="text-xs text-slate-600">© 2026 Les Sources du Cœur</p>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script>
+  function selectProvince(province, btn) {
+    // Mettre à jour les boutons
+    document.querySelectorAll('.province-btn').forEach(b => {
+      b.classList.remove('active','bg-[#009e60]','text-white','border-[#009e60]');
+      b.classList.add('border-slate-200','text-slate-600');
+    });
+    btn.classList.add('active');
+
+    // Sync avec le select caché
+    document.getElementById('province-selector').value = province;
+    DB.selectedProvince = province;
+
+    // Mettre à jour le titre
+    const vowels = ['A','E','I','O','U','Â','É','È','Ê','Î','Ô','Û'];
+    const first = province.charAt(0).toUpperCase();
+    const article = vowels.includes(first) ? "de l'" : "du ";
+    document.getElementById('selected-province-title').textContent = `Bureaux de la Province ${article}${province}`;
+
+    renderOfficesGrid();
+
+    // Compter
+    const count = DB.offices.filter(o => o.province === province).length;
+    document.getElementById('office-count').textContent = `${count} bureau${count > 1 ? 'x' : ''}`;
+  }
+
+  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  window.addEventListener('DOMContentLoaded', () => {
+    selectProvince('Estuaire', document.querySelector('.province-btn.active'));
+  });
+</script>
+</body>
+</html>

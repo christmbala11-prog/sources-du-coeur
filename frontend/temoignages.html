@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Témoignages des bénéficiaires et aidants des Sources du Cœur."/>
+<title>Les Sources du Cœur — Témoignages</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="js/tailwind.config.js"></script>
+<style>
+  body{background:#f8fafc;}
+  .glass-nav{background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+<div class="h-2 w-full flex">
+  <div class="w-1/3 h-full bg-[#009e60]"></div>
+  <div class="w-1/3 h-full bg-[#fcd116]"></div>
+  <div class="w-1/3 h-full bg-[#3a75c4]"></div>
+</div>
+
+<header class="sticky top-0 z-40 glass-nav border-b border-slate-200/70 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg" alt="Les Sources du Cœur" class="h-12 w-auto object-contain"/>
+        <div>
+          <span class="block text-[10px] font-bold tracking-widest text-[#009e60] uppercase">Association</span>
+          <span class="block text-lg font-bold text-slate-950 font-serif leading-tight">Les Sources du Cœur</span>
+        </div>
+      </a>
+      <nav class="hidden lg:flex items-center space-x-1">
+        <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="index.html"><i class="fa-solid fa-house mr-1.5"></i>Accueil</a>
+        <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="bureaux.html"><i class="fa-solid fa-map-location-dot mr-1.5"></i>Nos Bureaux</a>
+        <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="histoire.html"><i class="fa-solid fa-monument mr-1.5"></i>Notre Histoire</a>
+        <a class="px-4 py-2 rounded-lg text-sm font-semibold text-[#009e60] bg-[#e6f7ef]" href="temoignages.html"><i class="fa-solid fa-comments mr-1.5"></i>Témoignages</a>
+      </nav>
+      <div class="hidden lg:flex">
+        <a class="px-5 py-2.5 bg-[#009e60] hover:bg-[#006e40] text-white rounded-xl text-sm font-bold shadow-lg transition transform hover:-translate-y-0.5" href="rejoindre.html">Nous rejoindre <i class="fa-solid fa-arrow-right ml-1"></i></a>
+      </div>
+      <button class="lg:hidden p-2 text-slate-700" onclick="document.getElementById('mob').classList.toggle('hidden')"><i class="fa-solid fa-bars text-2xl"></i></button>
+    </div>
+  </div>
+  <div class="hidden lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-1" id="mob">
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="index.html"><i class="fa-solid fa-house w-5 text-[#009e60]"></i>Accueil</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="bureaux.html"><i class="fa-solid fa-map-location-dot w-5 text-[#009e60]"></i>Nos Bureaux</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="histoire.html"><i class="fa-solid fa-monument w-5 text-[#009e60]"></i>Notre Histoire</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="temoignages.html"><i class="fa-solid fa-comments w-5 text-[#009e60]"></i>Témoignages</a>
+    <div class="pt-2 border-t border-slate-100"><a class="block text-center py-3 bg-[#009e60] text-white rounded-xl font-bold" href="rejoindre.html">Nous rejoindre</a></div>
+  </div>
+</header>
+
+<main class="flex-grow">
+
+  <!-- HERO -->
+  <section class="relative text-white py-20 px-4 overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&q=80&w=1400');"></div>
+    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(0,62,32,0.92) 0%,rgba(58,117,196,0.5) 100%);"></div>
+    <div class="relative max-w-4xl mx-auto text-center space-y-5 z-10">
+      <span class="text-xs font-bold tracking-widest text-[#fcd116] uppercase">Paroles de bénéficiaires</span>
+      <h1 class="text-4xl sm:text-5xl font-bold font-serif leading-tight">Leurs retours<br/>changent tout</h1>
+      <div class="h-1 w-16 bg-[#fcd116] mx-auto rounded"></div>
+      <p class="text-slate-300 text-lg max-w-xl mx-auto">Chaque témoignage est vérifié et approuvé avant publication. Ils racontent leur parcours avec honnêteté.</p>
+      <!-- Stats rapides -->
+      <div class="flex flex-wrap justify-center gap-8 pt-6">
+        <div class="text-center"><div class="text-3xl font-extrabold text-white" id="testimonials-count">0</div><div class="text-xs text-slate-300 mt-1">Témoignages publiés</div></div>
+        <div class="text-center"><div class="text-3xl font-extrabold text-[#fcd116]">4.8/5</div><div class="text-xs text-slate-300 mt-1">Note moyenne</div></div>
+        <div class="text-center"><div class="text-3xl font-extrabold text-white">9</div><div class="text-xs text-slate-300 mt-1">Provinces représentées</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA PARTAGER -->
+  <section class="bg-[#e6f7ef] border-b border-[#009e60]/15 py-6 px-4">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#009e60] text-white flex items-center justify-center"><i class="fa-solid fa-comment-dots"></i></div>
+        <div>
+          <p class="font-bold text-slate-900 text-sm">Avez-vous bénéficié d'une aide ?</p>
+          <p class="text-xs text-slate-500">Votre expérience peut aider d'autres Gabonais à franchir le pas.</p>
+        </div>
+      </div>
+      <button onclick="document.getElementById('testimonial-form-card').classList.toggle('hidden')"
+        class="px-5 py-2.5 bg-[#009e60] hover:bg-[#006e40] text-white font-bold text-sm rounded-xl transition whitespace-nowrap">
+        <i class="fa-solid fa-pen mr-1.5"></i> Partager mon témoignage
+      </button>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE TÉMOIGNAGE -->
+  <div class="hidden bg-white border-b border-slate-100 px-4 py-8" id="testimonial-form-card">
+    <div class="max-w-3xl mx-auto">
+      <h3 class="text-xl font-bold font-serif text-slate-950 mb-6 flex items-center gap-2">
+        <i class="fa-solid fa-star text-[#fcd116]"></i> Nouveau témoignage
+      </h3>
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-5" id="new-testimonial-form" onsubmit="submitTestimonial(event)">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Votre nom *</label>
+          <input class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-[#009e60] focus:outline-none focus:ring-2 focus:ring-[#009e60]/20" id="t-author" placeholder="Ex: Aimé Ondo" required type="text"/>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Province *</label>
+          <select class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-[#009e60] focus:outline-none" id="t-province" required>
+            <option value="">Choisir...</option>
+            <option>Estuaire</option><option>Haut-Ogooué</option><option>Moyen-Ogooué</option>
+            <option>Ngounié</option><option>Nyanga</option><option>Ogooué-Ivindo</option>
+            <option>Ogooué-Lolo</option><option>Ogooué-Maritime</option><option>Woleu-Ntem</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Votre rôle *</label>
+          <select class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-[#009e60] focus:outline-none" id="t-role" required>
+            <option value="">Choisir...</option>
+            <option>Bénéficiaire</option><option>Aidant validé</option><option>Porteur de projet</option><option>Bénévole</option><option>Partenaire</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Note *</label>
+          <div class="flex gap-2 items-center pt-1" id="star-rating">
+            <i class="fa-solid fa-star text-[#fcd116] text-2xl cursor-pointer transition hover:scale-110" onclick="setStarRating(1)"></i>
+            <i class="fa-solid fa-star text-[#fcd116] text-2xl cursor-pointer transition hover:scale-110" onclick="setStarRating(2)"></i>
+            <i class="fa-solid fa-star text-[#fcd116] text-2xl cursor-pointer transition hover:scale-110" onclick="setStarRating(3)"></i>
+            <i class="fa-solid fa-star text-[#fcd116] text-2xl cursor-pointer transition hover:scale-110" onclick="setStarRating(4)"></i>
+            <i class="fa-solid fa-star text-[#fcd116] text-2xl cursor-pointer transition hover:scale-110" onclick="setStarRating(5)"></i>
+            <input id="t-rating" type="hidden" value="5"/>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Votre témoignage *</label>
+          <textarea class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-[#009e60] focus:outline-none focus:ring-2 focus:ring-[#009e60]/20" id="t-text" placeholder="Décrivez votre expérience avec Les Sources du Cœur..." required rows="4"></textarea>
+        </div>
+        <div class="md:col-span-2 p-4 bg-blue-50 border border-blue-100 rounded-xl text-xs text-slate-600">
+          <i class="fa-solid fa-circle-info text-blue-500 mr-1.5"></i>
+          Votre témoignage sera relu par un modérateur avant publication. Il peut prendre 24 à 48h pour apparaître.
+        </div>
+        <div class="md:col-span-2 flex justify-end gap-3">
+          <button type="button" onclick="document.getElementById('testimonial-form-card').classList.add('hidden')" class="px-5 py-2.5 border border-slate-200 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">Annuler</button>
+          <button class="px-6 py-2.5 bg-[#009e60] hover:bg-[#006e40] text-white rounded-xl text-sm font-bold transition" type="submit"><i class="fa-solid fa-paper-plane mr-1.5"></i>Envoyer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- LISTE DES TÉMOIGNAGES -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="testimonials-list-grid">
+        <!-- Rempli par JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA REJOINDRE -->
+  <section class="py-14 px-4 bg-white border-t border-slate-100 text-center">
+    <div class="max-w-2xl mx-auto space-y-5 reveal">
+      <h2 class="text-2xl font-bold font-serif text-slate-950">Prêt à écrire votre propre histoire ?</h2>
+      <p class="text-slate-500">Déposez votre dossier et bénéficiez d'un accompagnement personnalisé.</p>
+      <a href="rejoindre.html" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#009e60] hover:bg-[#006e40] text-white font-bold rounded-xl transition transform hover:-translate-y-0.5 shadow-lg">
+        <i class="fa-solid fa-hand-holding-heart"></i> Déposer mon dossier
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- TOAST -->
+<div class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-4 rounded-xl shadow-2xl border border-slate-800 flex items-center gap-3 max-w-sm transform translate-y-24 opacity-0 transition duration-300" id="toast-notif">
+  <div class="w-8 h-8 rounded-lg bg-[#009e60] flex items-center justify-center" id="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+  <div><h4 class="font-bold text-sm" id="toast-title">Succès !</h4><p class="text-xs text-slate-300" id="toast-message"></p></div>
+</div>
+
+<footer class="bg-[#003d20] text-white border-t border-white/5 py-10 px-4">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <img src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg" alt="Logo" class="h-12 w-auto object-contain"/>
+      <span class="font-bold font-serif text-white">Les Sources du Cœur</span>
+    </div>
+    <div class="flex flex-wrap justify-center gap-5 text-xs text-slate-400">
+      <a href="index.html" class="hover:text-white transition">Accueil</a>
+      <a href="bureaux.html" class="hover:text-white transition">Nos Bureaux</a>
+      <a href="histoire.html" class="hover:text-white transition">Notre Histoire</a>
+      <a href="rejoindre.html" class="hover:text-white transition">Nous Rejoindre</a>
+      <a href="faq.html" class="hover:text-white transition">FAQ</a>
+      <a href="mentions.html" class="hover:text-white transition">Mentions légales</a>
+    </div>
+    <p class="text-xs text-slate-600">© 2026 Les Sources du Cœur</p>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script>
+  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  window.addEventListener('DOMContentLoaded', () => { renderTestimonialsList(); updateHomeStats(); });
+</script>
+</body>
+</html>

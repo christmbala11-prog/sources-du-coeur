@@ -1,0 +1,17 @@
+VERSION STABLE — départements réels intégrés
+
+J'ai modifié uniquement :
+1. js/app.js : remplacement des bureaux fictifs par les vrais départements/chefs-lieux.
+2. textes visibles parlant de '3 bureaux' remplacés par 'bureaux départementaux'.
+3. version de la base simulée changée pour éviter que l'ancien localStorage casse l'affichage.
+
+Pour tester correctement :
+1. Dézippe le dossier.
+2. Ouvre le dossier dans Visual Studio Code.
+3. Lance index.html avec Live Server.
+4. Si ton navigateur avait gardé une ancienne base, clique dans l'admin sur 'Réinitialiser la démo' OU vide le localStorage.
+
+Important :
+- Je n'ai pas changé les liens entre les pages.
+- Je n'ai pas changé le design.
+- Je n'ai pas déplacé les fichiers.

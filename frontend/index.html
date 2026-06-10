@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Les Sources du Cœur — Association nationale d'entraide, d'accompagnement de projets et de coordination provinciale pour les citoyens gabonais."/>
+<meta property="og:title" content="Les Sources du Cœur — Plateforme Nationale d'Entraide"/>
+<meta property="og:description" content="Accompagner chaque citoyen, chaque projet, dans chaque province du Gabon."/>
+<meta property="og:image" content="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200"/>
+<title>Les Sources du Cœur — Plateforme Nationale d'Entraide</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="js/tailwind.config.js"></script>
+<style>
+  body { background-color: #f8fafc; }
+  .glass-nav { background: rgba(255,255,255,0.94); backdrop-filter: blur(14px); }
+
+  /* Hero overlay vert profond */
+  .hero-overlay {
+    background: linear-gradient(120deg, rgba(0,60,30,0.93) 0%, rgba(0,80,40,0.78) 50%, rgba(0,158,96,0.25) 100%);
+  }
+
+  /* Carte domaine */
+  .domain-card { transition: all 0.3s ease; border-bottom: 3px solid transparent; }
+  .domain-card:hover { transform: translateY(-4px); border-bottom-color: #009e60; box-shadow: 0 12px 32px rgba(0,158,96,0.10); }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Step connector */
+  .step-connector { position: relative; }
+  .step-connector::after {
+    content: '';
+    position: absolute;
+    top: 28px; left: 55%;
+    width: 90%; height: 2px;
+    background: linear-gradient(to right, #009e60, #c2ecd7);
+  }
+  @media (max-width: 768px) { .step-connector::after { display: none; } }
+
+  /* Logo pulse */
+  @keyframes heartbeat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
+  .logo-heart { animation: heartbeat 2.8s ease-in-out infinite; }
+</style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+<!-- BANDEAU DRAPEAU GABON -->
+<div class="h-2 w-full flex">
+  <div class="w-1/3 h-full bg-[#009e60]"></div>
+  <div class="w-1/3 h-full bg-[#fcd116]"></div>
+  <div class="w-1/3 h-full bg-[#3a75c4]"></div>
+</div>
+
+<!-- NAVIGATION -->
+<header class="sticky top-0 z-40 glass-nav border-b border-slate-200/70 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+
+      <!-- LOGO avec image réelle -->
+      <a href="index.html" class="flex items-center space-x-3 group">
+        <img
+          src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg"
+          alt="Les Sources du Cœur"
+          class="h-12 w-auto object-contain logo-heart"
+          onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';"
+        />
+        <!-- Fallback si image non trouvée -->
+        <div id="logo-fallback" class="hidden bg-[#009e60] text-white p-2.5 rounded-xl shadow-md">
+          <i class="fa-solid fa-heart-pulse text-2xl"></i>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold tracking-widest text-[#009e60] uppercase">Association</span>
+          <span class="block text-lg font-bold text-slate-950 font-serif leading-tight">Les Sources du Cœur</span>
+        </div>
+      </a>
+
+      <!-- Nav Desktop -->
+      <nav class="hidden lg:flex items-center space-x-1">
+        <a class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-[#009e60] bg-[#e6f7ef]" href="index.html">
+          <i class="fa-solid fa-house mr-1.5"></i> Accueil
+        </a>
+        <a class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="bureaux.html">
+          <i class="fa-solid fa-map-location-dot mr-1.5"></i> Nos Bureaux
+        </a>
+        <a class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="histoire.html">
+          <i class="fa-solid fa-monument mr-1.5"></i> Notre Histoire
+        </a>
+        <a class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-[#009e60] hover:bg-[#e6f7ef] transition-all" href="temoignages.html">
+          <i class="fa-solid fa-comments mr-1.5"></i> Témoignages
+        </a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="hidden lg:flex items-center space-x-3">
+        <a class="px-5 py-2.5 bg-[#009e60] hover:bg-[#006e40] text-white rounded-xl text-sm font-bold shadow-lg shadow-green-900/20 transition transform hover:-translate-y-0.5" href="rejoindre.html">
+          Nous rejoindre <i class="fa-solid fa-arrow-right ml-1.5"></i>
+        </a>
+      </div>
+
+      <!-- Mobile -->
+      <button class="lg:hidden p-2 text-slate-700" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+        <i class="fa-solid fa-bars text-2xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu Mobile -->
+  <div class="hidden lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-1" id="mobile-menu">
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="index.html"><i class="fa-solid fa-house w-5 text-[#009e60]"></i> Accueil</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="bureaux.html"><i class="fa-solid fa-map-location-dot w-5 text-[#009e60]"></i> Nos Bureaux</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="histoire.html"><i class="fa-solid fa-monument w-5 text-[#009e60]"></i> Notre Histoire</a>
+    <a class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 font-medium" href="temoignages.html"><i class="fa-solid fa-comments w-5 text-[#009e60]"></i> Témoignages</a>
+    <div class="pt-2 border-t border-slate-100">
+      <a class="block text-center py-3 bg-[#009e60] text-white rounded-xl font-bold" href="rejoindre.html">Nous rejoindre</a>
+    </div>
+  </div>
+</header>
+
+<main class="flex-grow">
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- HERO — Solidarité Africaine                   -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="relative text-white overflow-hidden min-h-[92vh] flex items-center">
+    <!-- Image : mains solidaires / entraide africaine -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+         style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1600');">
+    </div>
+    <div class="absolute inset-0 hero-overlay"></div>
+
+    <!-- Halos décoratifs -->
+    <div class="absolute top-16 right-16 w-80 h-80 rounded-full bg-[#009e60]/10 blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-24 left-8 w-56 h-56 rounded-full bg-[#fcd116]/10 blur-2xl pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+
+      <!-- Texte -->
+      <div class="lg:col-span-7 space-y-7">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-[#fcd116] text-slate-950 uppercase tracking-wider">
+            <i class="fa-solid fa-heart text-[10px]"></i> Association Nationale
+          </span>
+          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-white/10 border border-white/20 text-white uppercase tracking-wider">
+            <i class="fa-solid fa-map-pin text-[#fcd116] text-[10px]"></i>
+            9 Provinces · 47 Bureaux
+          </span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif leading-tight">
+          Là où il y a<br/>
+          <span class="text-[#fcd116]">un besoin</span>, nous<br/>
+          sommes présents
+        </h1>
+
+        <p class="text-lg text-slate-300 max-w-xl leading-relaxed">
+          Les Sources du Cœur accompagne les citoyens gabonais en difficulté et les porteurs de projets — de Libreville à Oyem, de Port-Gentil à Franceville — avec des aidants vérifiés et des bureaux de proximité.
+        </p>
+
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a class="px-7 py-4 bg-[#009e60] hover:bg-[#006e40] rounded-xl font-bold transition-all flex items-center gap-2 text-white shadow-xl hover:-translate-y-0.5 transform" href="rejoindre.html">
+            <i class="fa-solid fa-hand-holding-heart"></i> Déposer un dossier
+          </a>
+          <a class="px-7 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-bold transition-all flex items-center gap-2 hover:-translate-y-0.5 transform" href="bureaux.html">
+            <i class="fa-solid fa-magnifying-glass-location text-[#fcd116]"></i> Trouver mon bureau
+          </a>
+        </div>
+
+        <!-- Indicateurs de confiance -->
+        <div class="flex flex-wrap items-center gap-6 pt-5 border-t border-white/10">
+          <div class="flex items-center gap-2 text-sm text-slate-300">
+            <i class="fa-solid fa-shield-halved text-[#009e60]"></i> Apolitique & neutre
+          </div>
+          <div class="flex items-center gap-2 text-sm text-slate-300">
+            <i class="fa-solid fa-lock text-[#009e60]"></i> Données confidentielles
+          </div>
+          <div class="flex items-center gap-2 text-sm text-slate-300">
+            <i class="fa-solid fa-circle-check text-[#009e60]"></i> Aidants vérifiés
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte Stats -->
+      <div class="lg:col-span-5">
+        <div class="bg-white/8 backdrop-blur-2xl p-8 rounded-3xl border border-white/10 shadow-2xl space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-[#fcd116] flex items-center justify-center">
+                <i class="fa-solid fa-chart-line text-slate-900 text-sm"></i>
+              </div>
+              <h3 class="text-base font-bold font-serif text-[#fcd116]">Impact National</h3>
+            </div>
+            <span class="text-xs text-slate-400 bg-white/5 px-2 py-1 rounded-full">2026</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/5 rounded-2xl p-4 border border-white/5 hover:bg-white/10 transition">
+              <span class="block text-3xl font-extrabold text-white" id="stat-f-homes">1 420</span>
+              <span class="text-xs text-slate-400 mt-1 block leading-snug">Personnes accompagnées</span>
+              <div class="mt-2 h-1 w-8 bg-[#009e60] rounded"></div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-4 border border-white/5 hover:bg-white/10 transition">
+              <span class="block text-3xl font-extrabold text-white" id="stat-f-prov">9</span>
+              <span class="text-xs text-slate-400 mt-1 block leading-snug">Provinces couvertes</span>
+              <div class="mt-2 h-1 w-8 bg-[#fcd116] rounded"></div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-4 border border-white/5 hover:bg-white/10 transition">
+              <span class="block text-3xl font-extrabold text-white" id="stat-f-bux">47</span>
+              <span class="text-xs text-slate-400 mt-1 block leading-snug">Bureaux provinciaux</span>
+              <div class="mt-2 h-1 w-8 bg-[#3a75c4] rounded"></div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-4 border border-white/5 hover:bg-white/10 transition">
+              <span class="block text-3xl font-extrabold text-white" id="stat-f-bene">350+</span>
+              <span class="text-xs text-slate-400 mt-1 block leading-snug">Aidants validés</span>
+              <div class="mt-2 h-1 w-8 bg-[#009e60] rounded"></div>
+            </div>
+          </div>
+
+          <a href="rejoindre.html" class="block w-full text-center py-3.5 bg-[#009e60] hover:bg-[#006e40] text-white rounded-xl font-bold text-sm transition shadow-lg">
+            <i class="fa-solid fa-heart mr-2"></i>Rejoindre l'association
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 animate-bounce flex flex-col items-center gap-1">
+      <span class="text-[10px] uppercase tracking-widest">Découvrir</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- COMMENT ÇA MARCHE                            -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="bg-white py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-100">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3 reveal">
+        <span class="text-xs font-bold tracking-widest text-[#009e60] uppercase">Simple & transparent</span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif text-slate-950">Comment ça marche ?</h2>
+        <div class="h-1 w-16 bg-[#009e60] mx-auto rounded"></div>
+        <p class="text-slate-500">En 3 étapes, accédez à un accompagnement adapté à votre situation.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <!-- Étape 1 -->
+        <div class="flex flex-col items-center text-center space-y-4 reveal step-connector">
+          <div class="w-16 h-16 rounded-2xl bg-[#009e60] text-white flex items-center justify-center text-2xl font-extrabold shadow-xl shadow-green-700/20 relative z-10">1</div>
+          <div class="w-14 h-14 rounded-2xl bg-[#e6f7ef] text-[#009e60] flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-file-pen"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900">Remplissez votre dossier</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Décrivez votre situation ou projet depuis la page "Nous rejoindre". Gratuit, confidentiel, sans engagement.</p>
+          <a href="rejoindre.html" class="text-[#009e60] font-bold text-sm hover:underline inline-flex items-center gap-1">Commencer <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="flex flex-col items-center text-center space-y-4 reveal step-connector">
+          <div class="w-16 h-16 rounded-2xl bg-[#fcd116] text-slate-950 flex items-center justify-center text-2xl font-extrabold shadow-xl shadow-yellow-400/20 relative z-10">2</div>
+          <div class="w-14 h-14 rounded-2xl bg-[#fcd116]/10 text-[#c4a000] flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-user-check"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900">Un bureau local vous prend en charge</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Votre dossier est transmis au bureau provincial de votre choix. Un responsable vous contacte sous 48h.</p>
+          <a href="bureaux.html" class="text-[#009e60] font-bold text-sm hover:underline inline-flex items-center gap-1">Voir les bureaux <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="flex flex-col items-center text-center space-y-4 reveal">
+          <div class="w-16 h-16 rounded-2xl bg-[#3a75c4] text-white flex items-center justify-center text-2xl font-extrabold shadow-xl shadow-blue-600/20 relative z-10">3</div>
+          <div class="w-14 h-14 rounded-2xl bg-[#3a75c4]/10 text-[#3a75c4] flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-handshake-angle"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900">Mise en relation avec un aidant validé</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Selon votre besoin, vous êtes mis en relation avec un aidant, mentor ou financeur — vérifié et neutre politiquement.</p>
+          <a href="temoignages.html" class="text-[#009e60] font-bold text-sm hover:underline inline-flex items-center gap-1">Lire les témoignages <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- GALERIE SOLIDARITÉ — 3 images                -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-[#e6f7ef]">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <span class="text-xs font-bold tracking-widest text-[#009e60] uppercase">Sur le terrain</span>
+        <h2 class="text-2xl sm:text-3xl font-bold font-serif text-slate-950 mt-2">L'entraide en action</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Image 1 : Mains tendues / solidarité -->
+        <div class="relative rounded-3xl overflow-hidden h-64 group reveal">
+          <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&q=80&w=700"
+               alt="Entraide communautaire" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 text-white">
+            <p class="text-xs font-bold uppercase tracking-wider text-[#fcd116]">Communauté</p>
+            <p class="text-sm font-bold">Entraide & Solidarité</p>
+          </div>
+        </div>
+        <!-- Image 2 : Femmes africaines / projet -->
+        <div class="relative rounded-3xl overflow-hidden h-64 group reveal">
+          <img src="https://images.unsplash.com/photo-1531379410502-63bfe8cdaf6f?auto=format&fit=crop&q=80&w=700"
+               alt="Accompagnement de projets" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 text-white">
+            <p class="text-xs font-bold uppercase tracking-wider text-[#fcd116]">Projets</p>
+            <p class="text-sm font-bold">Accompagnement Local</p>
+          </div>
+        </div>
+        <!-- Image 3 : Enfants / avenir -->
+        <div class="relative rounded-3xl overflow-hidden h-64 group reveal">
+          <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&q=80&w=700"
+               alt="Avenir des jeunes gabonais" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 text-white">
+            <p class="text-xs font-bold uppercase tracking-wider text-[#fcd116]">Avenir</p>
+            <p class="text-sm font-bold">Jeunesse & Formation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- DOMAINES D'ACCOMPAGNEMENT                    -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3 reveal">
+        <span class="text-xs font-bold tracking-widest text-[#009e60] uppercase">Ce que nous couvrons</span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif text-slate-950">Nos Domaines d'Accompagnement</h2>
+        <div class="h-1 w-16 bg-[#009e60] mx-auto rounded"></div>
+        <p class="text-slate-500">Aide sociale, agriculture, pêche, formation, insertion, études à l'étranger et projets locaux.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="domain-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-[#e6f7ef] text-[#009e60] flex items-center justify-center text-xl"><i class="fa-solid fa-hammer"></i></div>
+            <h3 class="text-lg font-bold text-slate-900">Urgence & Accompagnement social</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Accueil, écoute, orientation et suivi des personnes en difficulté par nos représentants de proximité.</p>
+          </div>
+          <a class="mt-6 text-[#009e60] font-bold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all" href="rejoindre.html">Faire une demande <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="domain-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-[#fcd116]/10 text-[#c4a000] flex items-center justify-center text-xl"><i class="fa-solid fa-seedling"></i></div>
+            <h3 class="text-lg font-bold text-slate-900">Agriculture & Pêche</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Matériel, mise en marché, financements et formation pour les projets agricoles et de pêche artisanale.</p>
+          </div>
+          <a class="mt-6 text-[#009e60] font-bold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all" href="rejoindre.html">Présenter un projet <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="domain-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-[#3a75c4]/10 text-[#3a75c4] flex items-center justify-center text-xl"><i class="fa-solid fa-graduation-cap"></i></div>
+            <h3 class="text-lg font-bold text-slate-900">Études & Formation</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Orientation scolaire, dossiers pour études à l'étranger, mentorat étudiant et insertion professionnelle.</p>
+          </div>
+          <a class="mt-6 text-[#009e60] font-bold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all" href="rejoindre.html">Nous contacter <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="domain-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-[#e6f7ef] text-[#009e60] flex items-center justify-center text-xl"><i class="fa-solid fa-store"></i></div>
+            <h3 class="text-lg font-bold text-slate-900">Commerce & Insertion</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Création d'activités commerciales, soutien aux micro-entreprises et mise en réseau économique.</p>
+          </div>
+          <a class="mt-6 text-[#009e60] font-bold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all" href="rejoindre.html">Présenter un projet <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="domain-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-[#fcd116]/10 text-[#c4a000] flex items-center justify-center text-xl"><i class="fa-solid fa-people-roof"></i></div>
+            <h3 class="text-lg font-bold text-slate-900">Projets communautaires</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Initiatives locales à impact collectif : eau, énergie, éducation communautaire et projets de quartier.</p>
+          </div>
+          <a class="mt-6 text-[#009e60] font-bold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all" href="rejoindre.html">Soumettre un projet <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="domain-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-[#3a75c4]/10 text-[#3a75c4] flex items-center justify-center text-xl"><i class="fa-solid fa-handshake-angle"></i></div>
+            <h3 class="text-lg font-bold text-slate-900">Aidants & Mécènes</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Donateurs, mentors et partenaires vérifiés avant toute mise en relation pour garantir neutralité et protection.</p>
+          </div>
+          <a class="mt-6 text-[#009e60] font-bold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all" href="rejoindre.html">Devenir aidant <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- COMPTEURS ANIMÉS                             -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="bg-[#009e60] text-white py-16 px-4 sm:px-6 lg:px-8" id="counters-section">
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="space-y-2">
+        <div class="text-4xl sm:text-5xl font-extrabold" id="counter-1">0</div>
+        <div class="text-green-100 text-sm">Dossiers traités depuis 2021</div>
+      </div>
+      <div class="space-y-2">
+        <div class="text-4xl sm:text-5xl font-extrabold" id="counter-2">0</div>
+        <div class="text-green-100 text-sm">Bureaux actifs en 2026</div>
+      </div>
+      <div class="space-y-2">
+        <div class="text-4xl sm:text-5xl font-extrabold" id="counter-3">0</div>
+        <div class="text-green-100 text-sm">Aidants vérifiés</div>
+      </div>
+      <div class="space-y-2">
+        <div class="text-4xl sm:text-5xl font-extrabold" id="counter-4">0</div>
+        <div class="text-green-100 text-sm">Provinces couvertes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- TÉMOIGNAGE MIS EN AVANT                      -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <span class="text-xs font-bold tracking-widest text-[#009e60] uppercase">Ils témoignent</span>
+        <h2 class="text-3xl font-bold font-serif text-slate-950 mt-2">Ce que disent nos bénéficiaires</h2>
+        <div class="h-1 w-16 bg-[#009e60] mx-auto rounded mt-3"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Témoignage 1 -->
+        <div class="bg-[#e6f7ef] rounded-2xl p-6 space-y-4 reveal">
+          <div class="flex text-[#fcd116] gap-0.5 text-sm">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-700 text-sm italic leading-relaxed">"Grâce aux Sources du Cœur, mon projet maraîcher a pu démarrer. Le bureau d'Oyem m'a orienté vers un aidant qui m'a fourni les semences et le matériel nécessaire."</p>
+          <div class="flex items-center gap-3 pt-2 border-t border-[#009e60]/20">
+            <div class="w-10 h-10 rounded-full bg-[#009e60] text-white flex items-center justify-center font-bold text-sm">J</div>
+            <div>
+              <p class="font-bold text-sm text-slate-900">Jean-Marc O.</p>
+              <p class="text-xs text-slate-500">Woleu-Ntem · Projet agricole</p>
+            </div>
+          </div>
+        </div>
+        <!-- Témoignage 2 -->
+        <div class="bg-[#fcd116]/10 rounded-2xl p-6 space-y-4 reveal">
+          <div class="flex text-[#fcd116] gap-0.5 text-sm">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-700 text-sm italic leading-relaxed">"Mon dossier de bourse pour étudier au Maroc a été monté en moins d'une semaine avec l'aide d'un mentor de l'association. Je n'aurais pas pu le faire seule."</p>
+          <div class="flex items-center gap-3 pt-2 border-t border-[#c4a000]/20">
+            <div class="w-10 h-10 rounded-full bg-[#fcd116] text-slate-900 flex items-center justify-center font-bold text-sm">S</div>
+            <div>
+              <p class="font-bold text-sm text-slate-900">Sarah M.</p>
+              <p class="text-xs text-slate-500">Haut-Ogooué · Études à l'étranger</p>
+            </div>
+          </div>
+        </div>
+        <!-- Témoignage 3 -->
+        <div class="bg-[#3a75c4]/8 rounded-2xl p-6 space-y-4 reveal" style="background-color: rgba(58,117,196,0.08)">
+          <div class="flex text-[#fcd116] gap-0.5 text-sm">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+          </div>
+          <p class="text-slate-700 text-sm italic leading-relaxed">"En tant qu'aidant, j'ai pu financer l'équipement de pêche de trois familles de Port-Gentil. Le suivi par le bureau local était professionnel et transparent."</p>
+          <div class="flex items-center gap-3 pt-2 border-t border-[#3a75c4]/20">
+            <div class="w-10 h-10 rounded-full bg-[#3a75c4] text-white flex items-center justify-center font-bold text-sm">C</div>
+            <div>
+              <p class="font-bold text-sm text-slate-900">Claire N.</p>
+              <p class="text-xs text-slate-500">Aidante validée · Diaspora</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-10 reveal">
+        <a href="temoignages.html" class="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#009e60] text-[#009e60] font-bold rounded-xl hover:bg-[#009e60] hover:text-white transition">
+          Voir tous les témoignages <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PARTENAIRES                                  -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="py-14 px-4 sm:px-6 lg:px-8 bg-slate-50 border-y border-slate-100">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-xs font-bold tracking-widest text-slate-400 uppercase mb-10">Nos partenaires institutionnels</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="flex flex-col items-center gap-3 p-6 rounded-2xl border border-slate-100 bg-white hover:border-[#009e60]/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-[#e6f7ef] text-[#009e60] flex items-center justify-center text-2xl"><i class="fa-solid fa-landmark-dome"></i></div>
+          <span class="text-sm font-semibold text-slate-700 text-center leading-snug">Ministère de l'Habitat et des Affaires Sociales</span>
+        </div>
+        <div class="flex flex-col items-center gap-3 p-6 rounded-2xl border border-slate-100 bg-white hover:border-[#009e60]/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-[#fcd116]/10 text-[#c4a000] flex items-center justify-center text-2xl"><i class="fa-solid fa-coins"></i></div>
+          <span class="text-sm font-semibold text-slate-700 text-center leading-snug">Fonds National de Solidarité Gabonais</span>
+        </div>
+        <div class="flex flex-col items-center gap-3 p-6 rounded-2xl border border-slate-100 bg-white hover:border-[#009e60]/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-[#3a75c4]/10 text-[#3a75c4] flex items-center justify-center text-2xl"><i class="fa-solid fa-globe"></i></div>
+          <span class="text-sm font-semibold text-slate-700 text-center leading-snug">Bailleurs & Partenaires Internationaux</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- CTA FINAL                                    -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center opacity-15"
+         style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200');"></div>
+    <div class="absolute inset-0 bg-[#003d20]/90"></div>
+    <div class="relative max-w-4xl mx-auto text-center space-y-8 text-white reveal">
+      <div class="flex justify-center">
+        <img src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg" alt="Les Sources du Cœur" class="h-20 w-auto object-contain opacity-90"/>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold font-serif">Prêt à faire le premier pas ?</h2>
+      <p class="text-slate-300 text-lg max-w-2xl mx-auto">Que vous ayez besoin d'aide ou que vous souhaitiez en apporter, Les Sources du Cœur sont ouvertes à tous.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="rejoindre.html" class="px-8 py-4 bg-[#009e60] hover:bg-[#006e40] text-white font-bold rounded-xl transition transform hover:-translate-y-0.5 shadow-lg">
+          <i class="fa-solid fa-hand-holding-heart mr-2"></i>Demander de l'aide
+        </a>
+        <a href="rejoindre.html" class="px-8 py-4 bg-[#fcd116] hover:bg-[#e0b800] text-slate-950 font-bold rounded-xl transition transform hover:-translate-y-0.5">
+          <i class="fa-solid fa-hands-helping mr-2"></i>Devenir aidant
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- TOAST -->
+<div class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-4 rounded-xl shadow-2xl border border-slate-800 flex items-center gap-3 max-w-sm transform translate-y-24 opacity-0 transition duration-300" id="toast-notif">
+  <div class="w-8 h-8 rounded-lg bg-[#009e60] text-white flex items-center justify-center" id="toast-icon">
+    <i class="fa-solid fa-circle-check"></i>
+  </div>
+  <div>
+    <h4 class="font-bold text-sm" id="toast-title">Succès !</h4>
+    <p class="text-xs text-slate-300" id="toast-message">L'opération s'est déroulée avec succès.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-[#003d20] text-white border-t border-white/5">
+  <div class="max-w-7xl mx-auto py-14 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+
+    <!-- Identité avec logo -->
+    <div class="space-y-5 md:col-span-1">
+      <div class="flex items-center gap-3">
+        <img src="LOGO_LES_SOURCES_DU_COEUR_CMJN_1__page-0001__1_.jpg" alt="Logo" class="h-14 w-auto object-contain"/>
+        <div>
+          <span class="block text-[10px] font-bold tracking-widest text-[#009e60] uppercase">Association</span>
+          <span class="block text-base font-bold font-serif text-white leading-tight">Les Sources<br/>du Cœur</span>
+        </div>
+      </div>
+      <p class="text-xs text-slate-400 leading-relaxed">
+        Programme national d'entraide, d'accompagnement de projets et de coordination provinciale pour les citoyens gabonais.
+      </p>
+      <div class="flex h-1.5 w-20 rounded-full overflow-hidden">
+        <div class="w-1/3 bg-[#009e60]"></div>
+        <div class="w-1/3 bg-[#fcd116]"></div>
+        <div class="w-1/3 bg-[#3a75c4]"></div>
+      </div>
+    </div>
+
+    <!-- Ressources -->
+    <div>
+      <h4 class="font-bold text-sm text-[#fcd116] mb-5 uppercase tracking-wider">Ressources</h4>
+      <ul class="space-y-2.5 text-xs text-slate-400">
+        <li><a class="hover:text-white transition flex items-center gap-2" href="histoire.html"><i class="fa-solid fa-monument w-3.5 text-[#009e60]"></i> Notre Histoire</a></li>
+        <li><a class="hover:text-white transition flex items-center gap-2" href="bureaux.html"><i class="fa-solid fa-map-pin w-3.5 text-[#009e60]"></i> Nos Bureaux</a></li>
+        <li><a class="hover:text-white transition flex items-center gap-2" href="temoignages.html"><i class="fa-solid fa-comments w-3.5 text-[#009e60]"></i> Témoignages</a></li>
+        <li><a class="hover:text-white transition flex items-center gap-2" href="charte.html"><i class="fa-solid fa-scale-balanced w-3.5 text-[#009e60]"></i> Charte de neutralité</a></li>
+        <li><a class="hover:text-white transition flex items-center gap-2" href="faq.html"><i class="fa-solid fa-circle-question w-3.5 text-[#009e60]"></i> FAQ</a></li>
+        <li><a class="hover:text-white transition flex items-center gap-2" href="confidentialite.html"><i class="fa-solid fa-lock w-3.5 text-[#009e60]"></i> Confidentialité</a></li>
+        <li><a class="hover:text-white transition flex items-center gap-2" href="mentions.html"><i class="fa-solid fa-file-lines w-3.5 text-[#009e60]"></i> Mentions légales</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4 class="font-bold text-sm text-[#fcd116] mb-5 uppercase tracking-wider">Contact</h4>
+      <ul class="space-y-3 text-xs text-slate-400">
+        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot mt-0.5 text-[#009e60] w-3.5"></i><span>Siège National, Libreville<br/>Province de l'Estuaire, Gabon</span></li>
+        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-[#009e60] w-3.5"></i><a href="tel:+24101100000" class="hover:text-white transition">+241 01 100 00</a></li>
+        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-[#009e60] w-3.5"></i><a href="mailto:contact@lessourcesducoeur.ga" class="hover:text-white transition">contact@lessourcesducoeur.ga</a></li>
+      </ul>
+    </div>
+
+    <!-- Urgence -->
+    <div>
+      <h4 class="font-bold text-sm text-[#fcd116] mb-5 uppercase tracking-wider">Urgence 24h/24</h4>
+      <div class="bg-[#009e60]/15 border border-[#009e60]/25 rounded-2xl p-5 space-y-3">
+        <p class="text-xs text-slate-400">Numéro national d'urgence sociale :</p>
+        <span class="block text-2xl font-bold text-white">+241 01 100 00</span>
+        <p class="text-[11px] text-slate-500">Disponible 7j/7 pour toute urgence ou signalement.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signalement -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div class="bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5 space-y-3">
+          <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#fcd116]">
+            <i class="fa-solid fa-triangle-exclamation"></i> Signalement terrain
+          </span>
+          <h4 class="text-2xl font-bold font-serif text-white">Remonter un problème rencontré sur place</h4>
+          <p class="text-sm text-slate-400 leading-relaxed">Mauvais accueil, demande d'argent suspecte, influence politique... Signalez en toute confidentialité.</p>
+        </div>
+        <form class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4" onsubmit="submitIssueReport(event)">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">Province *</label>
+            <select class="w-full rounded-xl border border-white/10 bg-slate-800/80 px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#fcd116]" id="issue-province" required>
+              <option>Estuaire</option><option>Haut-Ogooué</option><option>Moyen-Ogooué</option>
+              <option>Ngounié</option><option>Nyanga</option><option>Ogooué-Ivindo</option>
+              <option>Ogooué-Lolo</option><option>Ogooué-Maritime</option><option>Woleu-Ntem</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">Bureau / localité</label>
+            <input class="w-full rounded-xl border border-white/10 bg-slate-800/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#fcd116]" id="issue-office" placeholder="Ex : Bureau Libreville Centre..." type="text"/>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">Type de problème *</label>
+            <select class="w-full rounded-xl border border-white/10 bg-slate-800/80 px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#fcd116]" id="issue-type" required>
+              <option>Accueil sur place</option><option>Retard de traitement</option>
+              <option>Demande d'argent suspecte</option><option>Influence politique / pression</option>
+              <option>Problème avec un aidant</option><option>Autre problème</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">Contact pour suivi</label>
+            <input class="w-full rounded-xl border border-white/10 bg-slate-800/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#fcd116]" id="issue-contact" placeholder="Téléphone ou email" type="text"/>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">Description *</label>
+            <textarea class="w-full rounded-xl border border-white/10 bg-slate-800/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#fcd116]" id="issue-message" placeholder="Décrivez ce qui s'est passé, où, quand..." required rows="3"></textarea>
+          </div>
+          <div class="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <p class="text-[11px] text-slate-500">Votre signalement protège les bénéficiaires et la neutralité de l'association.</p>
+            <button class="px-5 py-3 bg-[#fcd116] hover:bg-[#e0b800] text-slate-950 rounded-xl text-sm font-bold transition inline-flex items-center gap-2" type="submit">
+              <i class="fa-solid fa-paper-plane"></i> Envoyer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/5 py-6 text-center text-xs text-slate-600">
+    © 2026 Les Sources du Cœur. Tous droits réservés. Association nationale d'entraide — République Gabonaise.
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Compteurs animés
+  function animateCounter(el, target, suffix = '', duration = 1800) {
+    let start = 0;
+    const step = Math.ceil(target / (duration / 16));
+    const timer = setInterval(() => {
+      start = Math.min(start + step, target);
+      el.textContent = start.toLocaleString('fr-FR') + suffix;
+      if(start >= target) clearInterval(timer);
+    }, 16);
+  }
+
+  let animated = false;
+  const counterObserver = new IntersectionObserver(entries => {
+    if(entries[0].isIntersecting && !animated) {
+      animated = true;
+      animateCounter(document.getElementById('counter-1'), 1420);
+      animateCounter(document.getElementById('counter-2'), 47);
+      animateCounter(document.getElementById('counter-3'), 350, '+');
+      animateCounter(document.getElementById('counter-4'), 9);
+    }
+  }, { threshold: 0.5 });
+  const cs = document.getElementById('counters-section');
+  if(cs) counterObserver.observe(cs);
+</script>
+</body>
+</html>
