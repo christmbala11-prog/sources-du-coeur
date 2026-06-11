@@ -3,5 +3,5 @@ builder = "nixpacks"
 buildCommand = "npm install"
 
 [deploy]
-startCommand = "npx prisma generate && node server.js"
+startCommand = "node server.js"
 restartPolicyType = "on_failure"
