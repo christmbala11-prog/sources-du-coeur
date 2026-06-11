@@ -14,6 +14,8 @@
   .tab-btn.active{background:#009e60;color:white;}
   .stat-card{transition:all .2s;}
   .stat-card:hover{transform:translateY(-2px);}
+  .item-card{transition:all .2s;}
+  .item-card:hover{background:#f8fafc;}
 </style>
 </head>
 <body class="text-slate-800 antialiased flex flex-col min-h-screen">
@@ -52,10 +54,25 @@
   </div>
 </div>
 
-<!-- DASHBOARD ADMIN (caché par défaut) -->
+<!-- MODAL CONFIRMATION SUPPRESSION -->
+<div class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4" id="delete-modal">
+  <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+    <div class="w-14 h-14 rounded-full bg-red-100 text-red-500 flex items-center justify-center mx-auto text-2xl">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+    <h3 class="text-lg font-bold text-center text-slate-900">Confirmer la suppression</h3>
+    <p class="text-sm text-slate-500 text-center">Cette action est irréversible. Voulez-vous vraiment supprimer cet élément ?</p>
+    <div class="flex gap-3">
+      <button onclick="closeDeleteModal()" class="flex-1 py-2.5 border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition">Annuler</button>
+      <button onclick="confirmDelete()" class="flex-1 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-bold transition" id="confirm-delete-btn">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
 <div class="hidden" id="admin-dashboard">
 
-  <!-- NAV ADMIN -->
+  <!-- NAV -->
   <header class="sticky top-0 z-40 glass-nav border-b border-slate-200/70 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
@@ -79,7 +96,7 @@
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-10">
+  <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-8">
 
     <!-- STATS -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -133,55 +150,47 @@
       </button>
     </div>
 
-    <!-- CONTENU DOSSIERS -->
+    <!-- DOSSIERS -->
     <div id="content-dossiers">
       <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-slate-100 flex items-center justify-between">
           <h3 class="font-bold font-serif text-slate-900">Dossiers reçus</h3>
           <button onclick="loadDossiers()" class="text-xs text-[#009e60] hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Actualiser</button>
         </div>
-        <div id="dossiers-list" class="divide-y divide-slate-50">
-          <div class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
-        </div>
+        <div id="dossiers-list"><div class="p-8 text-center text-slate-400 text-sm">Chargement...</div></div>
       </div>
     </div>
 
-    <!-- CONTENU AIDANTS -->
+    <!-- AIDANTS -->
     <div id="content-benevoles" class="hidden">
       <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-slate-100 flex items-center justify-between">
           <h3 class="font-bold font-serif text-slate-900">Aidants inscrits</h3>
           <button onclick="loadBenevoles()" class="text-xs text-[#009e60] hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Actualiser</button>
         </div>
-        <div id="benevoles-list" class="divide-y divide-slate-50">
-          <div class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
-        </div>
+        <div id="benevoles-list"><div class="p-8 text-center text-slate-400 text-sm">Chargement...</div></div>
       </div>
     </div>
 
-    <!-- CONTENU TÉMOIGNAGES -->
+    <!-- TÉMOIGNAGES -->
     <div id="content-temoignages" class="hidden">
       <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-slate-100 flex items-center justify-between">
           <h3 class="font-bold font-serif text-slate-900">Témoignages à modérer</h3>
           <button onclick="loadTemoignages()" class="text-xs text-[#009e60] hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Actualiser</button>
         </div>
-        <div id="temoignages-list" class="divide-y divide-slate-50">
-          <div class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
-        </div>
+        <div id="temoignages-list"><div class="p-8 text-center text-slate-400 text-sm">Chargement...</div></div>
       </div>
     </div>
 
-    <!-- CONTENU SIGNALEMENTS -->
+    <!-- SIGNALEMENTS -->
     <div id="content-signalements" class="hidden">
       <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-slate-100 flex items-center justify-between">
           <h3 class="font-bold font-serif text-slate-900">Signalements terrain</h3>
           <button onclick="loadSignalements()" class="text-xs text-[#009e60] hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Actualiser</button>
         </div>
-        <div id="signalements-list" class="divide-y divide-slate-50">
-          <div class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
-        </div>
+        <div id="signalements-list"><div class="p-8 text-center text-slate-400 text-sm">Chargement...</div></div>
       </div>
     </div>
 
@@ -197,6 +206,27 @@
 <script src="js/app.js"></script>
 <script>
 const API_ADMIN = 'http://localhost:3000/api';
+let deleteCallback = null;
+
+// ── MODAL SUPPRESSION ──
+function openDeleteModal(callback) {
+  deleteCallback = callback;
+  const modal = document.getElementById('delete-modal');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+function closeDeleteModal() {
+  deleteCallback = null;
+  const modal = document.getElementById('delete-modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+function confirmDelete() {
+  if (deleteCallback) deleteCallback();
+  closeDeleteModal();
+}
 
 // ── ONGLETS ──
 function switchAdminTab(tab) {
@@ -235,37 +265,33 @@ async function loadDossiers() {
   document.getElementById('dossiers-list').innerHTML = data.length === 0
     ? '<div class="p-8 text-center text-slate-400 text-sm">Aucun dossier pour le moment.</div>'
     : data.map(d => `
-      <div class="p-5 hover:bg-slate-50 transition">
+      <div class="item-card p-5 border-b border-slate-50 last:border-0">
         <div class="flex flex-wrap items-start justify-between gap-3">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
+          <div class="space-y-1 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
               <div class="w-8 h-8 rounded-full bg-[#009e60] text-white flex items-center justify-center font-bold text-sm">${d.nom.charAt(0)}</div>
               <span class="font-bold text-slate-900">${d.nom}</span>
               ${statusBadge(d.statut)}
             </div>
-            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-phone mr-1"></i>${d.telephone} · <i class="fa-solid fa-map-pin mr-1"></i>${d.province} · ${d.bureau}</p>
-            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-tag mr-1"></i>${d.type}</p>
-            <p class="text-sm text-slate-600 pl-10 mt-1">${d.description}</p>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-phone mr-1 text-[#009e60]"></i>${d.telephone} · <i class="fa-solid fa-map-pin mr-1 text-[#009e60]"></i>${d.province} · ${d.bureau}</p>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-tag mr-1 text-[#009e60]"></i>${d.type}</p>
+            <p class="text-sm text-slate-600 pl-10 mt-1 italic">"${d.description}"</p>
+            <p class="text-[11px] text-slate-400 pl-10">${new Date(d.createdAt).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p>
           </div>
-          <div class="flex gap-2 flex-wrap">
-            <button onclick="updateDossierStatut(${d.id}, 'approuve')" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">✓ Approuver</button>
-            <button onclick="updateDossierStatut(${d.id}, 'rejete')" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">✗ Rejeter</button>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="updateStatut('dossiers', ${d.id}, 'approuve', loadDossiers)" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">
+              <i class="fa-solid fa-check mr-1"></i>Approuver
+            </button>
+            <button onclick="updateStatut('dossiers', ${d.id}, 'rejete', loadDossiers)" class="px-3 py-1.5 bg-orange-500 text-white text-xs font-bold rounded-lg hover:bg-orange-600 transition">
+              <i class="fa-solid fa-xmark mr-1"></i>Rejeter
+            </button>
+            <button onclick="deleteItem('dossiers', ${d.id}, loadDossiers)" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">
+              <i class="fa-solid fa-trash mr-1"></i>Supprimer
+            </button>
           </div>
         </div>
-        <p class="text-[11px] text-slate-400 mt-2 pl-10">${new Date(d.createdAt).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p>
       </div>
     `).join('');
-}
-
-async function updateDossierStatut(id, statut) {
-  const token = localStorage.getItem('admin_token');
-  await fetch(`${API_ADMIN}/dossiers/${id}/statut`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ statut })
-  });
-  showToast('Statut mis à jour', `Dossier marqué comme "${statut}"`);
-  loadDossiers();
 }
 
 // ── AIDANTS ──
@@ -277,35 +303,32 @@ async function loadBenevoles() {
   document.getElementById('benevoles-list').innerHTML = data.length === 0
     ? '<div class="p-8 text-center text-slate-400 text-sm">Aucun aidant pour le moment.</div>'
     : data.map(b => `
-      <div class="p-5 hover:bg-slate-50 transition">
+      <div class="item-card p-5 border-b border-slate-50 last:border-0">
         <div class="flex flex-wrap items-start justify-between gap-3">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
+          <div class="space-y-1 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
               <div class="w-8 h-8 rounded-full bg-[#fcd116] text-slate-900 flex items-center justify-center font-bold text-sm">${b.nom.charAt(0)}</div>
               <span class="font-bold text-slate-900">${b.nom}</span>
               ${statusBadge(b.statut)}
             </div>
-            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-envelope mr-1"></i>${b.email} · <i class="fa-solid fa-phone mr-1"></i>${b.telephone}</p>
-            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-tag mr-1"></i>${b.type} · ${b.specialite} · <i class="fa-solid fa-location-dot mr-1"></i>${b.ville}</p>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-envelope mr-1 text-[#009e60]"></i>${b.email} · <i class="fa-solid fa-phone mr-1 text-[#009e60]"></i>${b.telephone}</p>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-tag mr-1 text-[#009e60]"></i>${b.type} · ${b.specialite} · <i class="fa-solid fa-location-dot mr-1 text-[#009e60]"></i>${b.ville}</p>
+            <p class="text-sm text-slate-600 pl-10 italic mt-1">"${b.motivation}"</p>
           </div>
-          <div class="flex gap-2">
-            <button onclick="updateBenevoleStatut(${b.id}, 'approuve')" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">✓ Valider</button>
-            <button onclick="updateBenevoleStatut(${b.id}, 'rejete')" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">✗ Rejeter</button>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="updateStatut('benevoles', ${b.id}, 'approuve', loadBenevoles)" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">
+              <i class="fa-solid fa-check mr-1"></i>Valider
+            </button>
+            <button onclick="updateStatut('benevoles', ${b.id}, 'rejete', loadBenevoles)" class="px-3 py-1.5 bg-orange-500 text-white text-xs font-bold rounded-lg hover:bg-orange-600 transition">
+              <i class="fa-solid fa-xmark mr-1"></i>Rejeter
+            </button>
+            <button onclick="deleteItem('benevoles', ${b.id}, loadBenevoles)" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">
+              <i class="fa-solid fa-trash mr-1"></i>Supprimer
+            </button>
           </div>
         </div>
       </div>
     `).join('');
-}
-
-async function updateBenevoleStatut(id, statut) {
-  const token = localStorage.getItem('admin_token');
-  await fetch(`${API_ADMIN}/benevoles/${id}/statut`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ statut })
-  });
-  showToast('Statut mis à jour', `Aidant marqué comme "${statut}"`);
-  loadBenevoles();
 }
 
 // ── TÉMOIGNAGES ──
@@ -317,36 +340,33 @@ async function loadTemoignages() {
   document.getElementById('temoignages-list').innerHTML = data.length === 0
     ? '<div class="p-8 text-center text-slate-400 text-sm">Aucun témoignage pour le moment.</div>'
     : data.map(t => `
-      <div class="p-5 hover:bg-slate-50 transition">
+      <div class="item-card p-5 border-b border-slate-50 last:border-0">
         <div class="flex flex-wrap items-start justify-between gap-3">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
+          <div class="space-y-1 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
               <div class="w-8 h-8 rounded-full bg-[#3a75c4] text-white flex items-center justify-center font-bold text-sm">${t.auteur.charAt(0)}</div>
               <span class="font-bold text-slate-900">${t.auteur}</span>
               ${statusBadge(t.statut)}
-              <span class="text-[#fcd116] text-xs">${'★'.repeat(t.note)}</span>
+              <span class="text-[#fcd116] text-sm">${'★'.repeat(t.note)}${'☆'.repeat(5-t.note)}</span>
             </div>
-            <p class="text-xs text-slate-500 pl-10">${t.province} · ${t.role}</p>
-            <p class="text-sm text-slate-600 pl-10 italic">"${t.texte}"</p>
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-map-pin mr-1 text-[#009e60]"></i>${t.province} · ${t.role}</p>
+            <p class="text-sm text-slate-600 pl-10 italic mt-1">"${t.texte}"</p>
+            <p class="text-[11px] text-slate-400 pl-10">${new Date(t.createdAt).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'})}</p>
           </div>
-          <div class="flex gap-2">
-            <button onclick="updateTemoignageStatut(${t.id}, 'approuve')" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">✓ Publier</button>
-            <button onclick="updateTemoignageStatut(${t.id}, 'rejete')" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">✗ Rejeter</button>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="updateStatut('temoignages', ${t.id}, 'approuve', loadTemoignages)" class="px-3 py-1.5 bg-[#009e60] text-white text-xs font-bold rounded-lg hover:bg-[#006e40] transition">
+              <i class="fa-solid fa-check mr-1"></i>Publier
+            </button>
+            <button onclick="updateStatut('temoignages', ${t.id}, 'rejete', loadTemoignages)" class="px-3 py-1.5 bg-orange-500 text-white text-xs font-bold rounded-lg hover:bg-orange-600 transition">
+              <i class="fa-solid fa-xmark mr-1"></i>Rejeter
+            </button>
+            <button onclick="deleteItem('temoignages', ${t.id}, loadTemoignages)" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">
+              <i class="fa-solid fa-trash mr-1"></i>Supprimer
+            </button>
           </div>
         </div>
       </div>
     `).join('');
-}
-
-async function updateTemoignageStatut(id, statut) {
-  const token = localStorage.getItem('admin_token');
-  await fetch(`${API_ADMIN}/temoignages/${id}/statut`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ statut })
-  });
-  showToast('Témoignage mis à jour', `Marqué comme "${statut}"`);
-  loadTemoignages();
 }
 
 // ── SIGNALEMENTS ──
@@ -358,34 +378,55 @@ async function loadSignalements() {
   document.getElementById('signalements-list').innerHTML = data.length === 0
     ? '<div class="p-8 text-center text-slate-400 text-sm">Aucun signalement pour le moment.</div>'
     : data.map(s => `
-      <div class="p-5 hover:bg-slate-50 transition">
+      <div class="item-card p-5 border-b border-slate-50 last:border-0">
         <div class="flex flex-wrap items-start justify-between gap-3">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
+          <div class="space-y-1 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
               <div class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center text-sm"><i class="fa-solid fa-triangle-exclamation"></i></div>
               <span class="font-bold text-slate-900">${s.type}</span>
               ${statusBadge(s.statut)}
             </div>
-            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-map-pin mr-1"></i>${s.province} · ${s.bureau}</p>
-            <p class="text-sm text-slate-600 pl-10">${s.message}</p>
-            ${s.contact ? `<p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-phone mr-1"></i>${s.contact}</p>` : ''}
+            <p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-map-pin mr-1 text-[#009e60]"></i>${s.province} · ${s.bureau}</p>
+            <p class="text-sm text-slate-600 pl-10 mt-1">${s.message}</p>
+            ${s.contact ? `<p class="text-xs text-slate-500 pl-10"><i class="fa-solid fa-phone mr-1 text-[#009e60]"></i>${s.contact}</p>` : ''}
+            <p class="text-[11px] text-slate-400 pl-10">${new Date(s.createdAt).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'})}</p>
           </div>
-          <button onclick="updateSignalementStatut(${s.id}, 'traite')" class="px-3 py-1.5 bg-slate-700 text-white text-xs font-bold rounded-lg hover:bg-slate-900 transition">✓ Marqué traité</button>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="updateStatut('signalements', ${s.id}, 'traite', loadSignalements)" class="px-3 py-1.5 bg-slate-700 text-white text-xs font-bold rounded-lg hover:bg-slate-900 transition">
+              <i class="fa-solid fa-check mr-1"></i>Traité
+            </button>
+            <button onclick="deleteItem('signalements', ${s.id}, loadSignalements)" class="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-600 transition">
+              <i class="fa-solid fa-trash mr-1"></i>Supprimer
+            </button>
+          </div>
         </div>
-        <p class="text-[11px] text-slate-400 mt-2 pl-10">${new Date(s.createdAt).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'})}</p>
       </div>
     `).join('');
 }
 
-async function updateSignalementStatut(id, statut) {
+// ── MISE À JOUR STATUT ──
+async function updateStatut(type, id, statut, reload) {
   const token = localStorage.getItem('admin_token');
-  await fetch(`${API_ADMIN}/signalements/${id}/statut`, {
+  await fetch(`${API_ADMIN}/${type}/${id}/statut`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     body: JSON.stringify({ statut })
   });
-  showToast('Signalement traité', 'Marqué comme traité.');
-  loadSignalements();
+  showToast('Statut mis à jour', `Élément marqué comme "${statut}"`);
+  reload();
+}
+
+// ── SUPPRESSION ──
+function deleteItem(type, id, reload) {
+  openDeleteModal(async () => {
+    const token = localStorage.getItem('admin_token');
+    await fetch(`${API_ADMIN}/${type}/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    showToast('Supprimé', 'L\'élément a été supprimé définitivement.', 'success');
+    reload();
+  });
 }
 
 // ── DÉCONNEXION ──
@@ -394,10 +435,10 @@ function handleAdminLogout() {
   localStorage.removeItem('admin_email');
   document.getElementById('admin-login-modal').classList.remove('hidden');
   document.getElementById('admin-dashboard').classList.add('hidden');
-  showToast('Déconnecté', 'Vous avez été déconnecté avec succès.');
+  showToast('Déconnecté', 'Vous avez été déconnecté.');
 }
 
-// ── VÉRIFICATION AU CHARGEMENT ──
+// ── CHARGEMENT ──
 window.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('admin_token');
   const email = localStorage.getItem('admin_email');

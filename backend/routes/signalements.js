@@ -27,6 +27,14 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+router.delete('/:id', async (req, res) => {
+  try {
+    await prisma.signalement.delete({ where: { id: parseInt(req.params.id) } });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
 
 module.exports = router;
 // PATCH — Changer le statut d'un signalement
