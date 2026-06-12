@@ -6,4 +6,4 @@ RUN npm ci
 RUN npx prisma generate
 COPY backend/ .
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "npx prisma generate && node server.js"]
