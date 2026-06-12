@@ -5,7 +5,7 @@ nixPkgs = ["nodejs_20"]
 cmds = ["npm ci --ignore-scripts"]
 
 [phases.build]
-cmds = ["npx prisma generate"]
+cmds = ["npx prisma generate --schema=./prisma/schema.prisma"]
 
 [start]
 cmd = "node server.js"
