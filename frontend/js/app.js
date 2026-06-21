@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════
 // CONFIGURATION API
 // ═══════════════════════════════════════
-const API_URL = 'http://localhost:3000/api';
+const API_URL ="https://sources-du-coeur-1.onrender.com/api";
 
 // ═══════════════════════════════════════
 // UTILITAIRES
