@@ -313,37 +313,72 @@ function onBeneficiaryProvinceChange() {
 // ═══════════════════════════════════════
 // AFFICHAGE TÉMOIGNAGES
 // ═══════════════════════════════════════
-function renderTestimonialsList() {
+async function renderTestimonialsList() {
   const grid = document.getElementById('testimonials-list-grid');
   if (!grid) return;
-  const colors = ['bg-[#e6f7ef]', 'bg-[#fcd116]/10', ''];
-  const avatarColors = ['bg-[#009e60]', 'bg-[#fcd116] text-slate-900', 'bg-[#3a75c4]'];
-  grid.innerHTML = DB.testimonials.map((t, i) => `
-    <div class="rounded-2xl p-6 space-y-4 ${colors[i % 3]}" style="${i % 3 === 2 ? 'background:rgba(58,117,196,0.08)' : ''}">
+
+  // Afficher un loader pendant le chargement
+  grid.innerHTML = `
+    <div class="col-span-full flex items-center justify-center py-16 text-slate-400">
+      <i class="fa-solid fa-spinner fa-spin text-2xl mr-3"></i> Chargement des témoignages...
+    </div>`;
+
+  try {
+    const res = await fetch(`${API_URL}/temoignages/publics`);
+    const temoignages = await res.json();
+
+    const colors = ['bg-[#e6f7ef]', 'bg-[#fcd116]/10', ''];
+    const avatarColors = ['bg-[#009e60]', 'bg-[#fcd116] text-slate-900', 'bg-[#3a75c4]'];
+
+    if (!temoignages.length) {
+      // Fallback sur les témoignages statiques si aucun en base
+      const fallback = DB.testimonials;
+      grid.innerHTML = fallback.map((t, i) => renderTemoignageCard(t, i, colors, avatarColors)).join('');
+      updateTestimonialsCount(fallback.length);
+      return;
+    }
+
+    grid.innerHTML = temoignages.map((t, i) => renderTemoignageCard(t, i, colors, avatarColors)).join('');
+    updateTestimonialsCount(temoignages.length);
+
+  } catch (err) {
+    // En cas d'erreur réseau, afficher les témoignages statiques
+    const fallback = DB.testimonials;
+    grid.innerHTML = fallback.map((t, i) => renderTemoignageCard(t, i, colors, avatarColors)).join('');
+    updateTestimonialsCount(fallback.length);
+  }
+}
+
+function renderTemoignageCard(t, i, colors, avatarColors) {
+  const bgColors = colors || ['bg-[#e6f7ef]', 'bg-[#fcd116]/10', ''];
+  const avColors = avatarColors || ['bg-[#009e60]', 'bg-[#fcd116] text-slate-900', 'bg-[#3a75c4]'];
+  return `
+    <div class="rounded-2xl p-6 space-y-4 ${bgColors[i % 3]}" style="${i % 3 === 2 ? 'background:rgba(58,117,196,0.08)' : ''}">
       <div class="flex text-[#fcd116] gap-0.5 text-sm">
         ${'<i class="fa-solid fa-star"></i>'.repeat(t.note)}${'<i class="fa-regular fa-star text-slate-300"></i>'.repeat(5 - t.note)}
       </div>
       <p class="text-slate-700 text-sm italic leading-relaxed">"${t.texte}"</p>
       <div class="flex items-center gap-3 pt-2 border-t border-black/5">
-        <div class="w-10 h-10 rounded-full ${avatarColors[i % 3]} text-white flex items-center justify-center font-bold text-sm">
-          ${t.auteur.charAt(0)}
+        <div class="w-10 h-10 rounded-full ${avColors[i % 3]} text-white flex items-center justify-center font-bold text-sm">
+          ${t.auteur.charAt(0).toUpperCase()}
         </div>
         <div>
           <p class="font-bold text-sm text-slate-900">${t.auteur}</p>
           <p class="text-xs text-slate-500">${t.province} · ${t.role}</p>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+}
+
+function updateTestimonialsCount(total) {
   const countEl = document.getElementById('testimonials-count');
-  if (countEl) {
-    let n = 0;
-    const timer = setInterval(() => {
-      n = Math.min(n + 1, DB.testimonials.length);
-      countEl.textContent = n;
-      if (n >= DB.testimonials.length) clearInterval(timer);
-    }, 200);
-  }
+  if (!countEl) return;
+  let n = 0;
+  const timer = setInterval(() => {
+    n = Math.min(n + 1, total);
+    countEl.textContent = n;
+    if (n >= total) clearInterval(timer);
+  }, 200);
 }
 
 function updateHomeStats() {}

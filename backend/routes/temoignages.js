@@ -3,7 +3,20 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// GET — Tous les témoignages
+// GET — Témoignages approuvés (public, pour le site)
+router.get('/publics', async (req, res) => {
+  try {
+    const temoignages = await prisma.temoignage.findMany({
+      where: { statut: 'approuve' },
+      orderBy: { createdAt: 'desc' }
+    });
+    res.json(temoignages);
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// GET — Tous les témoignages (admin)
 router.get('/', async (req, res) => {
   try {
     const temoignages = await prisma.temoignage.findMany({
