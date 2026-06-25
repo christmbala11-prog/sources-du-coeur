@@ -2,20 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const auth = require('../middleware/auth');
 const { sendDossierConfirmation } = require('../email');
-// GET — Tous les dossiers
-router.get('/', async (req, res) => {
-  try {
-    const dossiers = await prisma.dossier.findMany({
-      orderBy: { createdAt: 'desc' }
-    });
-    res.json(dossiers);
-  } catch (err) {
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
-});
 
-// POST — Créer un dossier
+// POST — Créer un dossier (public)
 router.post('/', async (req, res) => {
   const { nom, telephone, province, bureau, type, description } = req.body;
   try {
@@ -29,8 +19,18 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PATCH — Changer le statut d'un dossier
-router.patch('/:id/statut', async (req, res) => {
+// GET — Tous les dossiers (admin)
+router.get('/', auth, async (req, res) => {
+  try {
+    const dossiers = await prisma.dossier.findMany({ orderBy: { createdAt: 'desc' } });
+    res.json(dossiers);
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// PATCH — Changer le statut (admin)
+router.patch('/:id/statut', auth, async (req, res) => {
   const { statut } = req.body;
   try {
     const dossier = await prisma.dossier.update({
@@ -43,13 +43,14 @@ router.patch('/:id/statut', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+// DELETE — Supprimer (admin)
+router.delete('/:id', auth, async (req, res) => {
   try {
     await prisma.dossier.delete({ where: { id: parseInt(req.params.id) } });
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur' });
   }
-  });
+});
 
 module.exports = router;

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const auth = require('../middleware/auth');
 
 // GET — Témoignages approuvés (public, pour le site)
 router.get('/publics', async (req, res) => {
@@ -16,19 +17,7 @@ router.get('/publics', async (req, res) => {
   }
 });
 
-// GET — Tous les témoignages (admin)
-router.get('/', async (req, res) => {
-  try {
-    const temoignages = await prisma.temoignage.findMany({
-      orderBy: { createdAt: 'desc' }
-    });
-    res.json(temoignages);
-  } catch (err) {
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
-});
-
-// POST — Nouveau témoignage
+// POST — Nouveau témoignage (public)
 router.post('/', async (req, res) => {
   const { auteur, province, role, note, texte } = req.body;
   try {
@@ -41,8 +30,18 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PATCH — Changer le statut
-router.patch('/:id/statut', async (req, res) => {
+// GET — Tous les témoignages (admin)
+router.get('/', auth, async (req, res) => {
+  try {
+    const temoignages = await prisma.temoignage.findMany({ orderBy: { createdAt: 'desc' } });
+    res.json(temoignages);
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// PATCH — Changer le statut (admin)
+router.patch('/:id/statut', auth, async (req, res) => {
   const { statut } = req.body;
   try {
     const temoignage = await prisma.temoignage.update({
@@ -55,12 +54,10 @@ router.patch('/:id/statut', async (req, res) => {
   }
 });
 
-// DELETE — Supprimer un témoignage
-router.delete('/:id', async (req, res) => {
+// DELETE — Supprimer (admin)
+router.delete('/:id', auth, async (req, res) => {
   try {
-    await prisma.temoignage.delete({
-      where: { id: parseInt(req.params.id) }
-    });
+    await prisma.temoignage.delete({ where: { id: parseInt(req.params.id) } });
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur' });

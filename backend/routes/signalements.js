@@ -2,20 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const auth = require('../middleware/auth');
 
-// GET — Tous les signalements
-router.get('/', async (req, res) => {
-  try {
-    const signalements = await prisma.signalement.findMany({
-      orderBy: { createdAt: 'desc' }
-    });
-    res.json(signalements);
-  } catch (err) {
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
-});
-
-// POST — Nouveau signalement
+// POST — Nouveau signalement (public)
 router.post('/', async (req, res) => {
   const { province, bureau, type, contact, message } = req.body;
   try {
@@ -27,18 +16,19 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
-router.delete('/:id', async (req, res) => {
+
+// GET — Tous les signalements (admin)
+router.get('/', auth, async (req, res) => {
   try {
-    await prisma.signalement.delete({ where: { id: parseInt(req.params.id) } });
-    res.json({ success: true });
+    const signalements = await prisma.signalement.findMany({ orderBy: { createdAt: 'desc' } });
+    res.json(signalements);
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
-module.exports = router;
-// PATCH — Changer le statut d'un signalement
-router.patch('/:id/statut', async (req, res) => {
+// PATCH — Changer le statut (admin)
+router.patch('/:id/statut', auth, async (req, res) => {
   const { statut } = req.body;
   try {
     const signalement = await prisma.signalement.update({
@@ -50,3 +40,15 @@ router.patch('/:id/statut', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+
+// DELETE — Supprimer (admin)
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    await prisma.signalement.delete({ where: { id: parseInt(req.params.id) } });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+module.exports = router;
