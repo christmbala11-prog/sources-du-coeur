@@ -236,14 +236,7 @@ const DB = {
     { province: 'Woleu-Ntem', name: 'Bureau Woleu', city: 'Aboumezok', phone: '+241 09 72 00 07', hours: 'Lun–Sam 8h–14h' },
   ],
 
-  testimonials: [
-    { auteur: 'Jean-Marc O.', province: 'Woleu-Ntem', role: 'Porteur de projet', note: 5, texte: "Grâce aux Sources du Cœur, mon projet maraîcher a pu démarrer. Le bureau d'Oyem m'a orienté vers un aidant qui m'a fourni les semences et le matériel nécessaire." },
-    { auteur: 'Sarah M.', province: 'Haut-Ogooué', role: 'Bénéficiaire', note: 5, texte: "Mon dossier de bourse pour étudier au Maroc a été monté en moins d'une semaine avec l'aide d'un mentor. Je n'aurais pas pu le faire seule." },
-    { auteur: 'Claire N.', province: 'Diaspora', role: 'Aidante validée', note: 4, texte: "En tant qu'aidante, j'ai pu financer l'équipement de pêche de trois familles de Port-Gentil. Le suivi par le bureau local était professionnel et transparent." },
-    { auteur: 'Paul E.', province: 'Estuaire', role: 'Bénéficiaire', note: 5, texte: "J'avais perdu espoir pour mon projet de commerce. L'association m'a mis en relation avec un mentor qui m'a aidé à structurer mon business plan." },
-    { auteur: 'Marie-Claire B.', province: 'Ngounié', role: 'Bénévole', note: 5, texte: "Être bénévole aux Sources du Cœur est une expérience enrichissante. On voit vraiment l'impact concret sur les familles de notre province." },
-    { auteur: 'Didier A.', province: 'Ogooué-Maritime', role: 'Porteur de projet', note: 4, texte: "Le bureau de Port-Gentil m'a aidé à obtenir du matériel de pêche. Processus clair, sans demande d'argent, exactement comme promis." },
-  ]
+  testimonials: []
 };
 
 // ═══════════════════════════════════════
